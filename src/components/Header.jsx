@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { FaGlobe, FaBars, FaTimes, FaSearch, FaUser } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/bog/bog/IMG_6018.png'
+import logo from '../assets/bog/bog/logo.png'
 import LazyImage from './LazyImage';
 
 
@@ -31,7 +31,8 @@ const Header = () => {
         <div className="flex items-center justify-between h-20 container-padding">
           {/* Logo */}
           <RouterLink to="/" className="flex items-center">
-            <LazyImage src={logo} alt="BuyOneGram" className="w-auto h-12" />
+            {/* <LazyImage src={logo} alt="BuyOneGram"  /> */}
+            <img src={logo} alt="BuyOneGram" className="w-auto h-20" />
           </RouterLink>
 
           {/* Desktop Navigation */}
