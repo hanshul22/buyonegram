@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="pt-16 pb-8 text-white bg-gray-900">
       <div className="container px-4 mx-auto">
-        <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Company Info */}
           <div>
             <h3 className="mb-4 text-xl font-semibold">BuyOneGram</h3>
@@ -80,6 +80,53 @@ const Footer = () => {
               <li>
                 <a href="#" className="text-gray-400 transition hover:text-white">
                   Shipping Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Subdomains */}
+          <div>
+            <h3 className="mb-4 text-xl font-semibold">Subdomains</h3>
+            <ul className="space-y-2">
+              <li>
+                <a 
+                  href="https://subdomain1.buyonegram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 transition hover:text-primary-500"
+                >
+                  Subdomain 1
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://subdomain2.buyonegram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 transition hover:text-primary-500"
+                >
+                  Subdomain 2
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://subdomain3.buyonegram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 transition hover:text-primary-500"
+                >
+                  Subdomain 3
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://subdomain3.buyonegram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 transition hover:text-primary-500"
+                >
+                  Subdomain 4
                 </a>
               </li>
             </ul>

@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { FaGlobe, FaBars, FaTimes, FaSearch, FaUser } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useLanguage, translations, languages } from '../context/LanguageContext';
 import logo from '../assets/bog/bog/logo.png'
-import LazyImage from './LazyImage';
 
 
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState('EN');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const location = useLocation();
+  const { language, toggleLanguage } = useLanguage();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
-  const toggleSignup = () => setIsSignupOpen(!isSignupOpen);
+  const toggleSignup = () => {
+    // Placeholder for signup functionality
+    console.log('Sign up clicked');
+  };
 
   const navItems = [
-    { name: 'Home', to: '/' },
-    { name: 'Products', to: '/products' },
-    { name: 'Services', to: '/services' },
-    { name: 'About', to: '/about' },
+    { name: translations[language].nav.home, to: '/' },
+    { name: translations[language].nav.products, to: '/products' },
+    { name: translations[language].nav.services, to: '/services' },
+    { name: translations[language].nav.jobs, to: '/jobs' },
+    { name: translations[language].nav.about, to: '/about' },
   ];
 
   return (
@@ -53,22 +56,15 @@ const Header = () => {
           {/* Desktop Actions */}
           <div className="items-center hidden space-x-6 lg:flex">
             {/* Search Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={toggleSearch}
-              className="transition-colors text-neutral-600 hover:text-primary-600"
-            >
-              <FaSearch size={20} />
-            </motion.button>
+            
 
             {/* Language Selector */}
             <button
               className="flex items-center transition-colors text-neutral-600 hover:text-primary-600"
-              onClick={() => setLanguage(language === 'EN' ? 'ES' : 'EN')}
+              onClick={toggleLanguage}
             >
               <FaGlobe className="mr-2" />
-              {language}
+              {languages[language].code}
             </button>
 
             {/* Sign Up Button */}
@@ -79,7 +75,7 @@ const Header = () => {
               className="flex items-center px-4 py-2 space-x-2 text-white transition-colors rounded-lg bg-primary-600 hover:bg-primary-700"
             >
               <FaUser />
-              <span>Sign Up</span>
+              <span>Sign In</span>
             </motion.button>
           </div>
 
@@ -114,7 +110,7 @@ const Header = () => {
                 onClick={toggleSignup}
               >
                 <FaUser />
-                <span>Sign Up</span>
+                <span>Sign In</span>
               </button>
             </div>
           </nav>

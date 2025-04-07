@@ -1,9 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import heroimg from '../assets/hero/heroimg.avif';
-import LazyImage from './LazyImage';
+import productImg1 from '../assets/products/kabuli channa copy.png';
+import productImg2 from '../assets/products/moong copy.png';
+import productImg3 from '../assets/products/masoor dal copy.png';
+import { Link, useLocation } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,13 +14,31 @@ const Hero = () => {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
   const imageRef = useRef(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const location = useLocation();
+  
+  const images = [heroimg, productImg1, productImg2, productImg3];
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    // Check if URL has #contact hash and scroll to it
+    if (location.hash === '#contact') {
+      setTimeout(() => scrollToContact(), 100);
+    }
+  }, [location]);
 
   useEffect(() => {
     const section = sectionRef.current;
     const text = textRef.current;
     const image = imageRef.current;
 
-    gsap.fromTo(text, 
+    gsap.fromTo(text,
       { opacity: 0, y: 100 },
       {
         opacity: 1,
@@ -47,12 +68,19 @@ const Hero = () => {
         }
       }
     );
-  }, []);
+    
+    // Image slider interval
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000); // Slightly longer duration for better viewing
+    
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="home" 
+      id="home"
       className="min-h-[90vh] flex items-center pt-20 relative overflow-hidden bg-dot-pattern"
     >
       {/* Background Decorations */}
@@ -63,7 +91,7 @@ const Hero = () => {
 
       <div className="container relative z-10 mx-auto container-padding">
         <div className="flex flex-wrap items-center gap-12 lg:gap-0">
-          <div 
+          <div
             ref={textRef}
             className="w-full lg:w-1/2 lg:pr-12"
           >
@@ -84,33 +112,51 @@ const Hero = () => {
                 Access premium quality pulses and beans directly from verified farmers worldwide through our innovative B2B marketplace.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="btn-primary">
-                  Browse Products
-                </button>
-                <button className="btn-secondary">
+                <Link to="/products">
+                  <button className="btn-primary">
+                  Explore Our Range
+                  </button>
+                </Link>
+                <button onClick={scrollToContact} className="btn-secondary">
                   Become a Supplier
                 </button>
               </div>
             </motion.div>
           </div>
 
-          <div 
+          <div
             ref={imageRef}
             className="w-full lg:w-1/2"
           >
             <motion.div
-              className="relative"
+              className="relative w-full h-[500px] lg:h-[600px]"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
             >
-              <div className="relative z-10 overflow-hidden rounded-2xl shadow-strong">
-                <LazyImage 
-                  src={heroimg} 
-                  alt="Agricultural Products" 
-                  className="w-full h-[500px] lg:h-[600px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="absolute inset-0 overflow-hidden rounded-2xl shadow-strong">
+                {images.map((img, index) => (
+                  <motion.div 
+                    key={index}
+                    className="absolute inset-0"
+                    initial={{ opacity: 0 }}
+                    animate={{ 
+                      opacity: index === currentImageIndex ? 1 : 0,
+                      scale: index === currentImageIndex ? 1 : 1.05
+                    }}
+                    transition={{ 
+                      opacity: { duration: 1.2, ease: "easeInOut" },
+                      scale: { duration: 1.2, ease: "easeInOut" }
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`Agricultural Product ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>

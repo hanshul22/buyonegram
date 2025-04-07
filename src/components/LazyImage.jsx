@@ -50,9 +50,9 @@ const LazyImage = ({
   return (
     <div 
       ref={imgRef}
-      className="relative overflow-hidden"
+      className="relative"
       style={{
-        backgroundColor: placeholderColor,
+        backgroundColor: isLoaded ? 'transparent' : placeholderColor,
         ...props.style
       }}
     >
@@ -71,11 +71,11 @@ const LazyImage = ({
       {/* Placeholder while image is loading */}
       {(!isLoaded || !isInView) && (
         <div 
-          className="absolute inset-0 flex items-center justify-center bg-gray-100 animate-pulse"
+          className="absolute inset-0 flex items-center justify-center bg-transparent"
           aria-hidden="true"
         >
           <svg 
-            className="w-12 h-12 text-gray-200" 
+            className="w-10 h-10 text-gray-200" 
             xmlns="http://www.w3.org/2000/svg" 
             aria-hidden="true" 
             fill="currentColor" 

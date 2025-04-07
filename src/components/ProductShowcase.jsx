@@ -1,57 +1,48 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import { masoorDal, arharDal2, channaDal, mixDal} from '../assets';
-import LazyImage from './LazyImage';
-
+import PropTypes from 'prop-types';
+import { masoorDal, arharDal2, channaDal, mixDal,jhamboRajma,kabuliChanna, mufliDana, mothSabut} from '../assets';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const products = [
   {
     id: 1,
-    name: 'Masoor Dal',
-    image: masoorDal ,
-    rating: 5
+    name: ['Masoor Dal', 'Channa Dal'],
+    images: [masoorDal, channaDal],
   },
   {
     id: 2,
-    name: 'Arhar Dal',
-    image: arharDal2 ,
-    rating: 4
+    name: ['Arhar Dal','Mix Dal'],
+    images: [arharDal2, mixDal],
   },
   {
     id: 3,
-    name: 'Channa Dal',
-    image: channaDal,
-    rating: 5
+    name: ['Jhambo Rajma','Kabuli Channa'],
+    images: [jhamboRajma, kabuliChanna],
   },
   {
     id: 4,
-    name: 'Mix Dal',
-    image: mixDal,
-    rating: 4
-  }
+    name: ['Moth Sabut','Mufli Dana'],
+    images: [mothSabut, mufliDana],
+  },
 ];
 
-const StarRating = ({ rating }) => (
-  <div className="flex gap-1">
-    {[...Array(5)].map((_, index) => (
-      <svg
-        key={index}
-        className={`w-5 h-5 ${index < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-    ))}
-  </div>
-);
 
 const ProductCard = ({ product, index }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prevIndex => prevIndex === 0 ? 1 : 0);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -61,21 +52,52 @@ const ProductCard = ({ product, index }) => {
       className="group"
     >
       <div className="relative mb-4 overflow-hidden rounded-2xl bg-neutral-100">
-        <LazyImage
-          src={product.image}
-          alt={product.name}
-          className="w-full aspect-[3/4] object-cover transform group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-black/20 group-hover:opacity-100" />
+        <div className="aspect-[3/4] w-full relative">
+          {product.images.map((img, imgIndex) => (
+            <motion.div 
+              key={imgIndex}
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: imgIndex === currentImageIndex ? 1 : 0,
+                scale: imgIndex === currentImageIndex ? 1 : 1.05
+              }}
+              transition={{ 
+                opacity: { duration: 1.2, ease: "easeInOut" },
+                scale: { duration: 1.2, ease: "easeInOut" }
+              }}
+            >
+              <img
+                src={img}
+                alt={`${product.name} ${imgIndex + 1}`}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl font-semibold transition-colors duration-300 text-neutral-800 group-hover:text-primary-600">
-          {product.name}
-        </h3>
-        
+        <motion.h3 
+          className="text-xl font-semibold transition-colors duration-300 text-neutral-800 group-hover:text-primary-600"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {product.name[currentImageIndex]}
+        </motion.h3>
       </div>
     </motion.div>
   );
+};
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.arrayOf(PropTypes.string).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired
 };
 
 const ProductShowcase = () => {
@@ -93,7 +115,7 @@ const ProductShowcase = () => {
 
     tl.fromTo(
       titleRef.current.children,
-      { 
+      {
         opacity: 0,
         y: 50
       },
@@ -111,7 +133,7 @@ const ProductShowcase = () => {
       <div className="container px-4 mx-auto">
         <div ref={titleRef} className="mb-16 space-y-4 text-center">
           <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-neutral-800">
-            Featured Products
+            Best Seller's
           </h2>
           <p className="max-w-3xl mx-auto text-xl text-neutral-600">
             Discover our selection of premium quality pulses and beans sourced from trusted farmers worldwide.

@@ -12,32 +12,39 @@ import Footer from './components/Footer';
 import ProductsPage from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
+import HowWeWork from './components/HowWeWork';
+import JobsPage from './pages/JobsPage';
+import { LanguageProvider } from './context/LanguageContext';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
-        <Header />
-        <Routes>
-          <Route path="/" element={
-            <main className="w-full overflow-hidden">
-              <Hero />
-              <ProductShowcase />
-              <Features />
-              <Mission />
-              <Statistics />
-              <TrustIndicators />
-              <Contact />
-            </main>
-          } />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-        </Routes>
-        <Chatbot />
-        <Footer />
-      </div>
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <div className="min-h-screen bg-white">
+          <Header />
+          <Routes>
+            <Route path="/" element={
+              <main className="w-full overflow-hidden">
+                <Hero />
+                <ProductShowcase />
+                <HowWeWork />
+                <Features />
+                <Mission />
+                <Statistics />
+                <TrustIndicators />
+                <Contact />
+              </main>
+            } />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/jobs" element={<JobsPage />} />
+          </Routes>
+          <Chatbot />
+          <Footer />
+        </div>
+      </Router>
+    </LanguageProvider>
   );
 }
 

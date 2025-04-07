@@ -1,13 +1,23 @@
-import { useState } from 'react';
-import { FaEnvelope, FaPhone, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
+import { useState, useRef, useEffect } from 'react';
+import { FaEnvelope, FaPhone, FaClock, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    from_name: '',
+    from_email: '',
     subject: '',
     message: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null);
+  const formRef = useRef();
+  
+  useEffect(() => {
+    // Initialize EmailJS
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'public_key';
+    emailjs.init(publicKey);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,8 +28,33 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    setLoading(true);
+    setStatus(null);
+    
+    // EmailJS configuration
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    
+    emailjs.sendForm(serviceId, templateId, formRef.current)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setStatus({ type: 'success', message: 'Message sent successfully!' });
+        // Reset form
+        setFormData({
+          from_name: '',
+          from_email: '',
+          subject: '',
+          message: ''
+        });
+        formRef.current.reset();
+      })
+      .catch((error) => {
+        console.error('FAILED...', error);
+        setStatus({ type: 'error', message: `Failed to send message: ${error.text}` });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -32,7 +67,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Contact Form */}
           <div className="p-8 bg-white rounded-lg shadow-md">
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
               <div className="mb-6">
                 <label className="block mb-2 text-gray-700" htmlFor="name">
                   Name
@@ -40,8 +75,8 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  name="name"
-                  value={formData.name}
+                  name="from_name"
+                  value={formData.from_name}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
                   required
@@ -55,8 +90,8 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  name="email"
-                  value={formData.email}
+                  name="from_email"
+                  value={formData.from_email}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
                   required
@@ -93,11 +128,43 @@ const Contact = () => {
                 ></textarea>
               </div>
 
+              <input type="hidden" name="to_email" value="hanshulkumawat22@gmail.com" />
+
+              {status && (
+                <div className={`mb-4 p-3 rounded-lg ${status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  {status.message}
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="w-full py-3 text-white transition rounded-lg bg-primary hover:bg-primary/90"
+                disabled={loading}
+                className="group relative w-full py-4 text-white font-semibold tracking-wide text-base transition-all duration-300 rounded-lg 
+                bg-gradient-to-r from-primary via-primary/90 to-primary/80 hover:from-primary hover:via-primary hover:to-primary/90 bg-[#2e7d32]
+                disabled:opacity-70 overflow-hidden"
               >
-                Send Message
+                <div className="absolute inset-0 w-full h-full transition-all duration-300 
+                  bg-gradient-to-r from-transparent via-white/5 to-transparent 
+                  group-hover:translate-x-full"></div>
+                
+                <div className="absolute inset-0 border border-white/10 rounded-lg"></div>
+                
+                <div className="relative flex items-center justify-center space-x-3">
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <svg className="w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      SENDING...
+                    </span>
+                  ) : (
+                    <>
+                      <FaPaperPlane className="text-lg relative" />
+                      <span className="relative">SEND MESSAGE</span>
+                    </>
+                  )}
+                </div>
               </button>
             </form>
           </div>
