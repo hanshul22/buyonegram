@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSearch, FaFilter, FaBriefcase, FaMapMarkerAlt, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 import {
   moong, kalaChanna, kaliMasoor, moongDal, uradSabut, arharDal,moongMogar,channaDal,mothSabut,
   whiteMatar,sabudana,uradChilka,chitraRajma,cholaMogar,mishriCutting,mixDal,jhamboRajma,kabuliChanna,
-  lobiya,masoorDal,mufliDana,arharDal2,} from "../assets";
-import LazyImage from '../components/LazyImage';
-import { useLanguage } from '../context/LanguageContext';
+  lobiya,masoorDal,mufliDana,} from "../assets";
 import emailjs from '@emailjs/browser';
 
 const productsData = [
@@ -358,34 +357,58 @@ const FeaturedProduct = ({ product, direction }) => {
       initial={{ opacity: 0, x: direction === 'left' ? -100 : 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: direction === 'left' ? 100 : -100 }}
-      transition={{ duration: 0.5 }}
+      transition={{ 
+        duration: 0.6,
+        ease: "easeInOut",
+        staggerChildren: 0.1
+      }}
       className="grid items-center gap-8 md:grid-cols-2"
     >
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
+        transition={{ 
+          duration: 0.5,
+          delay: 0.2
+        }}
         className="p-8 bg-white shadow-lg rounded-2xl"
       >
-        <h3 className="mb-6 text-4xl font-bold text-gray-800">{productName}</h3>
+        <motion.h3 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="mb-6 text-4xl font-bold text-gray-800"
+        >
+          {productName}
+        </motion.h3>
         <div className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            {Object.entries(productPrices).map(([weight, price]) => (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="grid grid-cols-2 gap-4"
+          >
+            {Object.entries(productPrices).map(([weight, price], index) => (
               <motion.div
                 key={weight}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.5 + (index * 0.1),
+                  ease: "easeOut"
+                }}
                 className="p-4 bg-primary-50 rounded-xl"
               >
                 <p className="font-semibold text-primary-600">{weight}</p>
                 <p className="text-2xl font-bold text-gray-800">₹{price}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
             className="text-gray-600"
           >
             {productDescription}
@@ -393,7 +416,7 @@ const FeaturedProduct = ({ product, direction }) => {
           <motion.ul
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
             className="space-y-2"
           >
             {productFeatures.map((feature, index) => (
@@ -401,7 +424,11 @@ const FeaturedProduct = ({ product, direction }) => {
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + index * 0.1 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.8 + (index * 0.1),
+                  ease: "easeOut"
+                }}
                 className="flex items-center space-x-2 text-gray-700"
               >
                 <span className="w-2 h-2 rounded-full bg-primary-600" />
@@ -414,18 +441,44 @@ const FeaturedProduct = ({ product, direction }) => {
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
+        transition={{ 
+          duration: 0.6, 
+          delay: 0.3,
+          ease: "easeOut"
+        }}
         className="relative h-[500px] rounded-2xl overflow-hidden"
       >
-        <img
+        <motion.img
           src={productImage}
           alt={productName}
           className="object-cover w-full h-full"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ 
+            duration: 0.8, 
+            delay: 0.4,
+            ease: "easeOut"
+          }}
         />
-
       </motion.div>
     </motion.div>
   );
+};
+
+FeaturedProduct.propTypes = {
+  product: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    image: PropTypes.string,
+    prices: PropTypes.object,
+    features: PropTypes.arrayOf(PropTypes.string)
+  }),
+  direction: PropTypes.oneOf(['left', 'right'])
+};
+
+FeaturedProduct.defaultProps = {
+  product: null,
+  direction: 'left'
 };
 
 const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight }) => {
@@ -438,30 +491,63 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -8, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+      transition={{ 
+        duration: 0.3,
+        ease: "easeOut"
+      }}
       className="overflow-hidden bg-white shadow-lg rounded-2xl"
     >
       <div className="relative h-48 overflow-hidden">
-        <img
+        <motion.img
           src={productImage}
           alt={productName}
-          className="object-cover w-full h-full transition-transform duration-500 transform hover:scale-110"
+          className="object-cover w-full h-full"
+          whileHover={{ scale: 1.1 }}
+          transition={{ 
+            duration: 0.5,
+            ease: "easeOut"
+          }}
           onError={(e) => {
             e.target.src = '/products/placeholder.jpg';
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        />
       </div>
 
-      <div className="p-6">
-        <h3 className="mb-4 text-xl font-semibold text-gray-800">{productName}</h3>
+      <motion.div 
+        className="p-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
+      >
+        <motion.h3 
+          className="mb-4 text-xl font-semibold text-gray-800"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {productName}
+        </motion.h3>
 
-        <div className="grid grid-cols-2 gap-2 mb-4">
+        <motion.div 
+          className="grid grid-cols-2 gap-2 mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
           {['500gm', '1kg', '5kg', '30kg'].map((weight) => (
             product?.[weight] > 0 && (
-              <button
+              <motion.button
                 key={weight}
                 onClick={() => setSelectedWeight(weight)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   selectedWeight === weight
                     ? 'bg-primary-600 text-white'
@@ -469,27 +555,52 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
                 }`}
               >
                 {weight}
-              </button>
+              </motion.button>
             )
           ))}
-        </div>
+        </motion.div>
 
-        <div className="p-4 mb-4 text-center bg-gray-50 rounded-xl">
+        <motion.div 
+          className="p-4 mb-4 text-center bg-gray-50 rounded-xl"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
           <p className="mb-1 text-sm text-gray-500">Price</p>
           <p className="text-2xl font-bold text-primary-600">
             ₹{formattedPrice}
           </p>
-        </div>
+        </motion.div>
         
-        <button
+        <motion.button
           onClick={() => onBuyNowClick(product, selectedWeight)}
+          whileHover={{ scale: 1.03, backgroundColor: "" }}
+          whileTap={{ scale: 0.97 }}
           className="w-full py-3 font-medium text-white transition-colors rounded-lg bg-primary-600 hover:bg-primary-700"
         >
           Buy Now
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
+};
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    product: PropTypes.string,
+    image: PropTypes.string,
+    '500gm': PropTypes.number,
+    '1kg': PropTypes.number,
+    '5kg': PropTypes.number,
+    '30kg': PropTypes.number
+  }),
+  onBuyNowClick: PropTypes.func.isRequired,
+  selectedWeight: PropTypes.string.isRequired,
+  setSelectedWeight: PropTypes.func.isRequired
+};
+
+ProductCard.defaultProps = {
+  product: {}
 };
 
 const ProductsPage = () => {
@@ -680,23 +791,27 @@ const ProductsPage = () => {
           <h2 className="mb-8 text-3xl font-bold">Featured Product</h2>
 
           <div className="absolute z-10 -translate-y-1/2 top-1/2 left-4">
-            <button
+            <motion.button
               onClick={prevProduct}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               className="p-3 transition-colors rounded-full bg-white/20 hover:bg-white/30"
             >
               <FaChevronLeft className="text-xl text-white" />
-            </button>
+            </motion.button>
           </div>
           <div className="absolute z-10 -translate-y-1/2 top-1/2 right-4">
-            <button
+            <motion.button
               onClick={nextProduct}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               className="p-3 transition-colors rounded-full bg-white/20 hover:bg-white/30"
             >
               <FaChevronRight className="text-xl text-white" />
-            </button>
+            </motion.button>
           </div>
 
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             <FeaturedProduct
               key={currentProductIndex}
               product={featuredProducts[currentProductIndex]}
@@ -706,12 +821,14 @@ const ProductsPage = () => {
 
           <div className="flex justify-center mt-8 space-x-2">
             {featuredProducts.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => {
                   setSlideDirection(index > currentProductIndex ? 'right' : 'left');
                   setCurrentProductIndex(index);
                 }}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
                 className={`w-3 h-3 rounded-full transition-colors ${index === currentProductIndex ? 'bg-white' : 'bg-white/30'
                   }`}
               />
@@ -738,7 +855,8 @@ const ProductsPage = () => {
           {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <motion.button
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg shadow-sm ${
                 selectedCategory === 'all'
@@ -749,7 +867,8 @@ const ProductsPage = () => {
               All Categories
             </motion.button>
             <motion.button
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory('pulses')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg shadow-sm ${
                 selectedCategory === 'pulses'
@@ -760,7 +879,8 @@ const ProductsPage = () => {
               Pulses
             </motion.button>
             <motion.button
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory('grains')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg shadow-sm ${
                 selectedCategory === 'grains'
@@ -771,7 +891,8 @@ const ProductsPage = () => {
               Grains
             </motion.button>
             <motion.button
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory('millets')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg shadow-sm ${
                 selectedCategory === 'millets'
@@ -785,30 +906,47 @@ const ProductsPage = () => {
 
           <div className="flex justify-center gap-4 mb-8">
             {['500gm', '1kg', '5kg', '30kg'].map((weight) => (
-              <button
+              <motion.button
                 key={weight}
                 onClick={() => setSelectedWeight(weight)}
+                whileHover={{ y: -2, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${selectedWeight === weight
                     ? 'bg-primary-600 text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-50'
                   }`}
               >
                 {weight}
-              </button>
+              </motion.button>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <motion.div 
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             {filteredProducts.map((product, index) => (
-              <ProductCard 
-                key={index} 
-                product={product} 
-                onBuyNowClick={handleOpenModal}
-                selectedWeight={selectedWeight}
-                setSelectedWeight={setSelectedWeight}
-              />
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: index * 0.05,
+                  ease: "easeOut"
+                }}
+              >
+                <ProductCard 
+                  product={product} 
+                  onBuyNowClick={handleOpenModal}
+                  selectedWeight={selectedWeight}
+                  setSelectedWeight={setSelectedWeight}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -819,13 +957,20 @@ const ProductsPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
             onClick={handleCloseModal}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ 
+                type: "spring",
+                damping: 20,
+                stiffness: 300,
+                mass: 0.8
+              }}
               className="w-full max-w-md p-6 bg-white rounded-2xl shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >

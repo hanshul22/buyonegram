@@ -1,7 +1,7 @@
 import { motion, useAnimationControls } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { client1, client2, client3 } from '../assets/index';
-import LazyImage from './LazyImage';
+import { client1, client2, client3 } from '../../assets';
+import LazyImage from '../LazyImage';
 
 const clients = [
   { name: 'Aadhar Mart', logo: client1 },

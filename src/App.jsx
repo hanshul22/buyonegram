@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import ProductShowcase from './components/ProductShowcase';
-import Features from './components/Features';
-import Mission from './components/Mission';
-import Statistics from './components/Statistics';
+import Hero from './components/home components/Hero';
+import ProductShowcase from './components/home components/ProductShowcase';
+import Features from './components/home components/Features';
+import Mission from './components/home components/Mission';
+import Statistics from './components/home components/Statistics';
 import Chatbot from './components/Chatbot';
-import TrustIndicators from './components/TrustIndicators';
-import Contact from './components/Contact';
+import TrustIndicators from './components/home components/TrustIndicators';
+import Contact from './components/home components/Contact';
 import Footer from './components/Footer';
 import ProductsPage from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
-import HowWeWork from './components/HowWeWork';
+import HowWeWork from './components/home components/HowWeWork';
 import JobsPage from './pages/JobsPage';
 import { LanguageProvider } from './context/LanguageContext';
 

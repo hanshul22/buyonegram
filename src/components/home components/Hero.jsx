@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import heroimg from '../assets/hero/heroimg.avif';
-import productImg1 from '../assets/products/kabuli channa copy.png';
-import productImg2 from '../assets/products/moong copy.png';
-import productImg3 from '../assets/products/masoor dal copy.png';
 import { Link, useLocation } from 'react-router-dom';
+import { 
+  masoorDal,
+  moong,
+  kabuliChanna
+} from '../../assets';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,7 +18,7 @@ const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const location = useLocation();
   
-  const images = [heroimg, productImg1, productImg2, productImg3];
+  const images = [masoorDal, moong, kabuliChanna];
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');

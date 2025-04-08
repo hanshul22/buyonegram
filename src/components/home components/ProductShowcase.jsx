@@ -4,7 +4,16 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { masoorDal, arharDal2, channaDal, mixDal,jhamboRajma,kabuliChanna, mufliDana, mothSabut} from '../assets';
+import { 
+  masoorDal, 
+  arharDal2, 
+  channaDal, 
+  mixDal,
+  jhamboRajma,
+  kabuliChanna, 
+  mufliDana, 
+  mothSabut 
+} from '../../assets';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -133,7 +142,7 @@ const ProductShowcase = () => {
       <div className="container px-4 mx-auto">
         <div ref={titleRef} className="mb-16 space-y-4 text-center">
           <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-neutral-800">
-            Best Seller's
+            Best Seller&apos;s
           </h2>
           <p className="max-w-3xl mx-auto text-xl text-neutral-600">
             Discover our selection of premium quality pulses and beans sourced from trusted farmers worldwide.

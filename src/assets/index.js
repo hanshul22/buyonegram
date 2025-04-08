@@ -1,30 +1,30 @@
-import client1 from "../assets/clients/aadhar mart.jpeg";
-import client2 from "../assets/clients/ipermart.jpeg";
-import client3 from "../assets/clients/Nr mart.jpg";
+import client1 from "../assets/optimized/clients/aadhar mart.webp";
+import client2 from "../assets/optimized/clients/ipermart.webp";
+import client3 from "../assets/optimized/clients/Nr mart.webp";
 
 // Product imports
-import moong from "../assets/products/moong copy.png";
-import kalaChanna from "../assets/products/kala channa copy.png";
-import kaliMasoor from "../assets/products/kali masoor copy.png";
-import moongDal from "../assets/products/moong dal copy.png";
-import uradSabut from "../assets/products/urad sabut copy.png";
-import arharDal from "../assets/products/arhar dal copy.png";
-import moongMogar from "../assets/products/moong mogar copy.png";
-import channaDal from "../assets/products/channa dal copy.png";
-import mothSabut from "../assets/products/moth sabut copy.png";
-import whiteMatar from "../assets/products/white matar copy.png";
-import sabudana from "../assets/products/sabudana copy.png";
-import uradChilka from "../assets/products/urad chilka copy.png";
-import chitraRajma from "../assets/products/chitra rajma copy.png";
-import cholaMogar from "../assets/products/chola mogar copy.png";
-import mishriCutting from "../assets/products/mishri cutting copy.png";
-import mixDal from "../assets/products/mix dal copy.png";
-import jhamboRajma from "../assets/products/jhambo rajma copy.png";
-import kabuliChanna from "../assets/products/kabuli channa copy.png";
-import lobiya from "../assets/products/lobiya copy.png";
-import masoorDal from "../assets/products/masoor dal copy.png";
-import mufliDana from "../assets/products/mufli dana copy.png";
-import arharDal2 from "../assets/products/arhar dal copy(1).png";
+import moong from "../assets/optimized/products/moong copy.webp";
+import kalaChanna from "../assets/optimized/products/kala channa copy.webp";
+import kaliMasoor from "../assets/optimized/products/kali masoor copy.webp";
+import moongDal from "../assets/optimized/products/moong dal copy.webp";
+import uradSabut from "../assets/optimized/products/urad sabut copy.webp";
+import arharDal from "../assets/optimized/products/arhar dal copy.webp";
+import moongMogar from "../assets/optimized/products/moong mogar copy.webp";
+import channaDal from "../assets/optimized/products/channa dal copy.webp";
+import mothSabut from "../assets/optimized/products/moth sabut copy.webp";
+import whiteMatar from "../assets/optimized/products/white matar copy.webp";
+import sabudana from "../assets/optimized/products/sabudana copy.webp";
+import uradChilka from "../assets/optimized/products/urad chilka copy.webp";
+import chitraRajma from "../assets/optimized/products/chitra rajma copy.webp";
+import cholaMogar from "../assets/optimized/products/chola mogar copy.webp";
+import mishriCutting from "../assets/optimized/products/mishri cutting copy.webp";
+import mixDal from "../assets/optimized/products/mix dal copy.webp";
+import jhamboRajma from "../assets/optimized/products/jhambo rajma copy.webp";
+import kabuliChanna from "../assets/optimized/products/kabuli channa copy.webp";
+import lobiya from "../assets/optimized/products/lobiya copy.webp";
+import masoorDal from "../assets/optimized/products/masoor dal copy.webp";
+import mufliDana from "../assets/optimized/products/mufli dana copy.webp";
+import arharDal2 from "../assets/optimized/products/arhar dal copy(1).webp";
 
 export { 
   client1, 

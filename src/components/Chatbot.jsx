@@ -18,13 +18,35 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Chat Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed z-50 p-4 text-white transition rounded-full shadow-lg bottom-4 right-4 bg-primary hover:bg-primary/90"
-      >
-        <FaComments size={24} />
-      </button>
+      {/* Chat Button - Only visible when chat is closed */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={() => setIsOpen(true)}
+            className="fixed z-50 p-4 text-gray-500 transition rounded-full shadow-lg bottom-4 right-4 bg-primary hover:bg-primary-700 hover:text-white"
+          >
+            <FaComments size={24} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Close Button - Only visible when chat is open */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed z-50 p-4 text-white transition rounded-full shadow-lg bottom-4 right-4 bg-red-500 hover:bg-red-600"
+          >
+            <FaTimes size={24} />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Chat Window */}
       <AnimatePresence>
@@ -45,9 +67,6 @@ const Chatbot = () => {
                 />
                 <span>BuyOneGram Assistant</span>
               </div>
-              <button onClick={() => setIsOpen(false)}>
-                <FaTimes />
-              </button>
             </div>
 
             {/* Messages */}
