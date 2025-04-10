@@ -8,21 +8,18 @@ const features = [
   {
     icon: <FaCheckCircle className="text-5xl text-primary" />,
     title: 'Quality Assurance',
-    description: 'Rigorous quality control and certification processes ensuring premium products.'
+    description: 'Certified products with rigorous inspections and traceability from farm to warehouse.'
   },
- 
   {
     icon: <FaBoxes className="text-5xl text-primary" />,
     title: 'Bulk Ordering',
-    description: 'Streamlined bulk ordering process with competitive volume discounts.'
+    description: 'Simplified wholesale ordering system with dynamic pricing and volume discounts.'
   },
   {
     icon: <FaLock className="text-5xl text-primary" />,
     title: 'Secure Payments',
-    description: 'Protected transactions with advanced escrow services for peace of mind.'
-  },
-  
- 
+    description: 'Your transactions are protected by advanced escrow systems to ensure fairness for all parties.'
+  }
 ];
 
 const FeatureCard = ({ feature, index }) => {
@@ -109,13 +106,13 @@ const Features = () => {
       <div className="container relative z-10 px-4 mx-auto">
         <div ref={titleRef} className="mb-16 text-center">
           <motion.h2 
-            className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl"
+            className="mb-4 text-4xl font-bold text-primary md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Why Choose BuyOneGram?
+            Why Choose Buy One Gram?
           </motion.h2>
           <motion.p 
             className="max-w-2xl mx-auto text-xl text-gray-600"

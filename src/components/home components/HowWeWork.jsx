@@ -8,31 +8,31 @@ const steps = [
   {
     icon: <FaBox className="text-4xl" />,
     title: 'Sourcing',
-    description: 'We procure premium grains and pulses from Farmer Producer Organizations (FPOs) to support fair trade and government initiatives.',
+    description: 'We work with Farmer Producer Organization\'s (FPOs) and verified farm collectives to procure fresh, ethically grown produce.',
     color: 'from-blue-500 to-blue-600'
   },
   {
     icon: <FaCheckCircle className="text-4xl" />,
     title: 'Quality Control',
-    description: 'Each batch undergoes rigorous multi-stage testing for food safety and compliance.',
+    description: 'Every batch undergoes multi-level inspection to meet international food safety standards.',
     color: 'from-green-500 to-green-600'
   },
   {
     icon: <FaBoxOpen className="text-4xl" />,
     title: 'Packaging',
-    description: 'Products are packed with precision to retain freshness and quality.',
+    description: 'Sealed for freshness using food-grade materials to retain nutritional value and quality.',
     color: 'from-yellow-500 to-yellow-600'
   },
   {
     icon: <FaWarehouse className="text-4xl" />,
     title: 'Storage & Inventory',
-    description: 'Managed by JVS Foods Limited, ensuring smooth stock handling.',
+    description: 'Managed by Buy One Gram Pvt Ltd, our warehousing system ensures seamless handling and traceability.',
     color: 'from-purple-500 to-purple-600'
   },
   {
     icon: <FaTruck className="text-4xl" />,
     title: 'Distribution',
-    description: 'Our efficient logistics team ensures timely delivery to retailers and wholesalers.',
+    description: 'Our logistics team delivers products on time to wholesalers, exporters, and distributors across the globe.',
     color: 'from-red-500 to-red-600'
   }
 ];
@@ -74,23 +74,23 @@ const ProcessStep = ({ step, index }) => {
       )}
 
       {/* Step Card */}
-      <div className="relative bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+      <div className="relative p-8 transition-shadow duration-300 bg-white shadow-lg rounded-2xl hover:shadow-xl">
         {/* Icon Circle */}
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-          <div className="w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white shadow-lg">
+        <div className="absolute -translate-x-1/2 -top-6 left-1/2">
+          <div className="flex items-center justify-center w-12 h-12 text-white rounded-full shadow-lg bg-primary-600">
             {step.icon}
           </div>
         </div>
 
         {/* Content */}
         <div className="mt-8 text-center">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">{step.title}</h3>
+          <h3 className="mb-4 text-xl font-bold text-gray-800">{step.title}</h3>
           <p className="text-gray-600">{step.description}</p>
         </div>
 
         {/* Step Number */}
-        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2">
-          <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold">
+        <div className="absolute -translate-x-1/2 -bottom-4 left-1/2">
+          <div className="flex items-center justify-center w-8 h-8 font-bold rounded-full bg-primary-100 text-primary-600">
             {index + 1}
           </div>
         </div>
@@ -121,21 +121,21 @@ const HowWeWork = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-gray-50 relative overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 overflow-hidden bg-gray-50">
       {/* Background Decorations */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-50 rounded-full blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-50 rounded-full blur-3xl opacity-30 translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-96 h-96 bg-primary-50 blur-3xl opacity-30" />
+        <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-96 h-96 bg-primary-50 blur-3xl opacity-30" />
       </div>
 
-      <div className="container mx-auto px-4 relative">
+      <div className="container relative px-4 mx-auto">
         {/* Section Title */}
-        <div ref={titleRef} className="text-center mb-20">
+        <div ref={titleRef} className="mb-20 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-gray-800 mb-6"
+            className="mb-6 text-4xl font-bold text-gray-800 md:text-5xl"
           >
             How We Work
           </motion.h2>
@@ -144,14 +144,14 @@ const HowWeWork = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto text-xl text-gray-600"
           >
-            Our streamlined process ensures quality at every step
+            Our end-to-end supply chain ensures you get the best quality—every time
           </motion.p>
         </div>
 
         {/* Process Steps */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-20">
+        <div className="grid grid-cols-1 gap-12 mt-20 lg:grid-cols-5">
           {steps.map((step, index) => (
             <ProcessStep key={index} step={step} index={index} />
           ))}

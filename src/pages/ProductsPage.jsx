@@ -498,11 +498,11 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
       }}
       className="overflow-hidden bg-white shadow-lg rounded-2xl"
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative w-full overflow-hidden aspect-square">
         <motion.img
           src={productImage}
           alt={productName}
-          className="object-cover w-full h-full"
+          className="object-contain w-full h-full p-4"
           whileHover={{ scale: 1.1 }}
           transition={{ 
             duration: 0.5,
@@ -766,9 +766,9 @@ const ProductsPage = () => {
     'Soyabean Dana': 'grains',
     'Moofhli Dana (Desi)': 'grains',
     
-    // Millets (assuming some products are millets)
-    'Bura': 'millets',
-    'Mishri Cutting': 'millets',
+    // Sugar
+    'Bura': 'sugar',
+    'Mishri Cutting': 'sugar',
   };
 
   const filteredProducts = productsData.filter(product => {
@@ -893,14 +893,38 @@ const ProductsPage = () => {
             <motion.button
               whileHover={{ y: -2, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedCategory('millets')}
+              onClick={() => setSelectedCategory('sugar')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg shadow-sm ${
-                selectedCategory === 'millets'
+                selectedCategory === 'sugar'
                   ? 'bg-primary-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
+              Sugar
+            </motion.button>
+            <motion.button
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled
+              className="px-6 py-3 font-medium text-gray-400 transition-colors bg-gray-100 rounded-lg shadow-sm cursor-not-allowed"
+            >
               Millets
+            </motion.button>
+            <motion.button
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled
+              className="px-6 py-3 font-medium text-gray-400 transition-colors bg-gray-100 rounded-lg shadow-sm cursor-not-allowed"
+            >
+              Masale
+            </motion.button>
+            <motion.button
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled
+              className="px-6 py-3 font-medium text-gray-400 transition-colors bg-gray-100 rounded-lg shadow-sm cursor-not-allowed"
+            >
+              Others
             </motion.button>
           </div>
 
@@ -971,7 +995,7 @@ const ProductsPage = () => {
                 stiffness: 300,
                 mass: 0.8
               }}
-              className="w-full max-w-md p-6 bg-white rounded-2xl shadow-2xl"
+              className="w-full max-w-md p-6 bg-white shadow-2xl rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
@@ -990,8 +1014,27 @@ const ProductsPage = () => {
               </p>
 
               {submitResult ? (
-                <div className={`p-4 mb-6 rounded-lg ${submitResult.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                  <p>{submitResult.message}</p>
+                <div className="space-y-4">
+                  <div className="p-4 mb-6 text-green-700 bg-green-100 rounded-lg">
+                    <p>{submitResult.message}</p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-primary-50">
+                    <p className="mb-2 text-primary-700">Download our FreshStock app for a better experience:</p>
+                    <a 
+                      href="https://play.google.com/store/apps/details?id=com.freshstock.app" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block w-full px-4 py-2 text-center text-white transition-colors rounded-lg bg-primary-600 hover:bg-primary-700"
+                    >
+                      Download FreshStock App
+                    </a>
+                  </div>
+                  <button
+                    onClick={handleCloseModal}
+                    className="w-full px-4 py-2 font-medium text-white rounded-lg bg-primary-600 hover:bg-primary-700"
+                  >
+                    Close
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
@@ -1061,15 +1104,6 @@ const ProductsPage = () => {
                     </button>
                   </div>
                 </form>
-              )}
-              
-              {submitResult && submitResult.success && (
-                <button
-                  onClick={handleCloseModal}
-                  className="w-full px-4 py-2 mt-4 font-medium text-white rounded-lg bg-primary-600 hover:bg-primary-700"
-                >
-                  Close
-                </button>
               )}
             </motion.div>
           </motion.div>

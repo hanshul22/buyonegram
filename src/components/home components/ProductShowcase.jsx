@@ -79,7 +79,7 @@ const ProductCard = ({ product, index }) => {
               <img
                 src={img}
                 alt={`${product.name} ${imgIndex + 1}`}
-                className="w-full h-full object-cover"
+                className="object-cover w-full h-full"
                 loading="lazy"
               />
             </motion.div>
@@ -145,7 +145,7 @@ const ProductShowcase = () => {
             Best Seller&apos;s
           </h2>
           <p className="max-w-3xl mx-auto text-xl text-neutral-600">
-            Discover our selection of premium quality pulses and beans sourced from trusted farmers worldwide.
+          Discover our selection of premium quality pulses and beans sourced from trusted farmers worldwide:
           </p>
         </div>
 

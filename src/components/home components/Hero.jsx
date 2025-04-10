@@ -102,15 +102,13 @@ const Hero = () => {
               transition={{ duration: 0.8 }}
             >
               <span className="inline-block px-4 py-2 mb-6 text-sm font-semibold rounded-full bg-primary-100 text-primary-700">
-                Trusted by 1000+ Businesses
+                Trusted by 1500+ Businesses
               </span>
               <h1 className="mb-6 text-5xl font-bold leading-tight md:text-6xl lg:text-7xl text-balance">
-                Connecting
-                <span className="text-gradient"> Farmers </span>
-                with Global Markets
+                Bridging Local Harvests with Global Demand
               </h1>
               <p className="max-w-2xl mb-8 text-xl leading-relaxed text-neutral-600">
-                Access premium quality pulses and beans directly from verified farmers worldwide through our innovative B2B marketplace.
+                Welcome to Buy One Gram – the B2B marketplace revolutionizing the way agricultural trade works. We connect verified farmers with global buyers, delivering premium pulses and beans with transparency, quality, and trust.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/products">
@@ -153,7 +151,7 @@ const Hero = () => {
                     <img
                       src={img}
                       alt={`Agricultural Product ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="object-cover w-full h-full"
                       loading="lazy"
                     />
                   </motion.div>

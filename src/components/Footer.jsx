@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaMapMarkerAlt, FaTimes } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaMapMarkerAlt, FaTimes, FaYoutube } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Footer = () => {
@@ -16,17 +16,20 @@ const Footer = () => {
               Connecting farmers and buyers worldwide through our innovative B2B marketplace.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 transition hover:text-white">
+              <a href="https://www.facebook.com/buyonegram/" className="text-gray-400 transition hover:text-white">
                 <FaFacebook size={24} />
               </a>
-              <a href="#" className="text-gray-400 transition hover:text-white">
+              <a href="https://x.com/buyonegram/" className="text-gray-400 transition hover:text-white">
                 <FaTwitter size={24} />
               </a>
-              <a href="#" className="text-gray-400 transition hover:text-white">
+              <a href="https://www.linkedin.com/company/buy-one-gram-private-limited/" className="text-gray-400 transition hover:text-white">
                 <FaLinkedin size={24} />
               </a>
-              <a href="#" className="text-gray-400 transition hover:text-white">
+              <a href="https://www.instagram.com/buyonegram/" className="text-gray-400 transition hover:text-white">
                 <FaInstagram size={24} />
+              </a>
+              <a href="https://www.youtube.com/@buyonegram" className="text-gray-400 transition hover:text-white">
+                <FaYoutube size={24} />
               </a>
             </div>
           </div>
@@ -96,7 +99,7 @@ const Footer = () => {
                   rel="noopener noreferrer" 
                   className="text-gray-400 transition hover:text-primary-500"
                 >
-                  Subdomain 1
+                  https://spinwheel.buyonegram.com/
                 </a>
               </li>
               <li>
@@ -106,7 +109,7 @@ const Footer = () => {
                   rel="noopener noreferrer" 
                   className="text-gray-400 transition hover:text-primary-500"
                 >
-                  Subdomain 2
+                  https://spinwheel.buyonegram.com/
                 </a>
               </li>
               <li>
@@ -116,17 +119,7 @@ const Footer = () => {
                   rel="noopener noreferrer" 
                   className="text-gray-400 transition hover:text-primary-500"
                 >
-                  Subdomain 3
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://subdomain3.buyonegram.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-gray-400 transition hover:text-primary-500"
-                >
-                  Subdomain 4
+                  https://thanks.buyonegram.com/
                 </a>
               </li>
             </ul>
@@ -143,15 +136,14 @@ const Footer = () => {
               <span>View on Map</span>
             </button>
             <p className="mt-2 text-gray-400">
-              Rajasthan Centre of Advanced Technology (R-CAT)<br />
-              Sitapura, Jaipur
+            G-222, RIICO, sitapura industrial area, tonk road Jaipur, rajasthan 302019
             </p>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 text-center text-gray-400 border-t border-gray-800">
-          <p>&copy; {new Date().getFullYear()} BuyOneGram. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} © 2020 BuyOneGram. All rights reserved. </p>
         </div>
       </div>
 

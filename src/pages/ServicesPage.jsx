@@ -1,77 +1,60 @@
 import { motion } from 'framer-motion';
-import { FaHandshake, FaLeaf, FaCheckCircle, FaChartLine, FaTruck, FaUserShield, FaUsers, FaBox, FaIndustry, FaGlobe, FaWarehouse, FaSearch } from 'react-icons/fa';
+import { FaHandshake, FaLeaf, FaCheckCircle, FaTruck, FaUserShield, FaUsers, FaBox, FaWarehouse, FaSearch } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 const services = [
   {
     icon: <FaHandshake className="text-3xl" />,
-    title: "Direct Trading Platform",
-    description: "Connect directly with buyers and sellers worldwide, eliminating intermediaries and maximizing your profits.",
+    title: "Direct Farm Trading",
+    description: "We help you connect directly with trusted Farmers, ensuring better prices and long-term trade relationships—without middlemen. Buy and sell agricultural produce in bulk with ease.",
     category: "Trading"
   },
   {
     icon: <FaLeaf className="text-3xl" />,
-    title: "Quality Processing",
-    description: "Professional post-harvest services including cleaning, grading, and packaging to enhance product value.",
+    title: "Post-Harvest Handling",
+    description: "From cleaning to grading and proper packaging, we prepare your produce to meet market standards and fetch better returns.",
     category: "Processing"
   },
   {
     icon: <FaCheckCircle className="text-3xl" />,
-    title: "Quality Certification",
-    description: "Comprehensive quality checks and certification processes ensuring premium product standards.",
+    title: "Assured Quality Checks",
+    description: "Every batch goes through careful inspection and double shorting process to meet our quality standards. We proudly offer a 100% Product Quality Guarantee.",
     category: "Quality"
   },
   {
-    icon: <FaChartLine className="text-3xl" />,
-    title: "Market Intelligence",
-    description: "Real-time market data and analytics for informed decision-making and optimal pricing strategies.",
-    category: "Analytics"
-  },
-  {
     icon: <FaTruck className="text-3xl" />,
-    title: "Logistics Solutions",
-    description: "End-to-end transportation and delivery services with real-time tracking and optimization.",
+    title: "Reliable Transportation",
+    description: "We offer dependable transport services—from your farm to buyers or markets—ensuring timely and safe delivery of your goods.",
     category: "Logistics"
   },
   {
     icon: <FaUserShield className="text-3xl" />,
-    title: "Secure Trading",
-    description: "Protected transactions and verified profiles ensuring safe and transparent trading.",
+    title: "Trusted Trade Practices",
+    description: "All dealings are conducted with verified parties and transparent processes to ensure safety and fairness in every transaction.",
     category: "Security"
   },
   {
     icon: <FaUsers className="text-3xl" />,
-    title: "Farmer Support",
-    description: "Comprehensive support including training, financial assistance, and access to resources.",
+    title: "Farmer-Centric Support",
+    description: "We provide training, advisory, and financial guidance to help farmers grow sustainably and improve productivity.",
     category: "Support"
   },
   {
     icon: <FaBox className="text-3xl" />,
-    title: "Smart Packaging",
-    description: "Sustainable packaging solutions that maintain product quality and freshness.",
+    title: "Purposeful Packaging",
+    description: "We use strong and sustainable packaging that maintains product freshness and meets retail expectations.",
     category: "Packaging"
   },
   {
-    icon: <FaIndustry className="text-3xl" />,
-    title: "Value Addition",
-    description: "Processing services to enhance product value and meet market demands.",
-    category: "Processing"
-  },
-  {
-    icon: <FaGlobe className="text-3xl" />,
-    title: "Global Market Access",
-    description: "Connect with international buyers and expand your market reach worldwide.",
-    category: "Market"
-  },
-  {
     icon: <FaWarehouse className="text-3xl" />,
-    title: "Storage Solutions",
-    description: "Modern storage facilities with temperature control and inventory management.",
+    title: "Safe Storage Facilities",
+    description: "We store our products in cold-dry and safe storage to ensure proper maintenance and preserve their shelf live.",
     category: "Storage"
   },
   {
     icon: <FaSearch className="text-3xl" />,
-    title: "Product Traceability",
-    description: "Complete tracking system for product origin and journey transparency.",
+    title: "Clear Product Identity",
+    description: "We maintain simple, transparent record-keeping so every product's origin and handling can be easily traced when needed.",
     category: "Traceability"
   }
 ];
@@ -83,26 +66,26 @@ const ServiceCard = ({ service, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+      className="overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-2xl hover:shadow-xl"
     >
       <div className="p-8">
         {/* Icon with gradient background */}
-        <div className="mb-6 w-16 h-16 rounded-full bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <div className="text-primary-600 group-hover:text-primary-700 transition-colors duration-300">
+        <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform duration-300 rounded-full bg-gradient-to-br from-primary-50 to-primary-100 group-hover:scale-110">
+          <div className="transition-colors duration-300 text-primary-600 group-hover:text-primary-700">
             {service.icon}
           </div>
         </div>
 
         {/* Content */}
-        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-primary-600 transition-colors duration-300">
+        <h3 className="mb-3 text-xl font-bold text-gray-800 transition-colors duration-300 group-hover:text-primary-600">
           {service.title}
         </h3>
-        <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+        <p className="text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
           {service.description}
         </p>
 
         {/* Category Tag */}
-        <div className="mt-6 inline-block px-3 py-1 bg-primary-50 text-primary-600 text-sm font-medium rounded-full">
+        <div className="inline-block px-3 py-1 mt-6 text-sm font-medium rounded-full bg-primary-50 text-primary-600">
           {service.category}
         </div>
       </div>
@@ -110,20 +93,30 @@ const ServiceCard = ({ service, index }) => {
   );
 };
 
+ServiceCard.propTypes = {
+  service: PropTypes.shape({
+    icon: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired
+  }).isRequired,
+  index: PropTypes.number.isRequired
+};
+
 const ServicesPage = () => {
   return (
-    <div className="pt-20 min-h-screen bg-gray-50">
+    <div className="min-h-screen pt-20 bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-700 py-20 text-white">
-        <div className="container mx-auto px-4">
+      <section className="py-20 text-white bg-gradient-to-r from-primary-600 to-primary-700">
+        <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
+            <h1 className="mb-6 text-4xl font-bold md:text-5xl">Our Services</h1>
             <p className="text-xl opacity-90">
-              Comprehensive solutions to support your agricultural business at every step
+              Smart, Scalable, and End-to-End Solutions for Modern Agriculture
             </p>
           </motion.div>
         </div>
@@ -131,8 +124,8 @@ const ServicesPage = () => {
 
       {/* Services Grid */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="container px-4 mx-auto">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
               <ServiceCard key={service.title} service={service} index={index} />
             ))}

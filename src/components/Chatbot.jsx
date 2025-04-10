@@ -1,13 +1,18 @@
-import { useState } from 'react';
-import { FaComments, FaTimes, FaUser, FaPaperPlane } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaComments, FaTimes, FaPaperPlane } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import LazyImage from './LazyImage';
 
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [messages] = useState([
     { text: 'Hello! How can I help you today?', isBot: true }
   ]);
+
+  // Auto-open chat on component mount
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
 
   const quickResponses = [
     'Product Inquiry',
@@ -26,7 +31,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsOpen(true)}
-            className="fixed z-50 p-4 text-gray-500 transition rounded-full shadow-lg bottom-4 right-4 bg-primary hover:bg-primary-700 hover:text-white"
+            className="fixed z-50 p-4 text-white transition rounded-full shadow-lg bottom-4 right-4 bg-green-500 hover:bg-green-600"
           >
             <FaComments size={24} />
           </motion.button>
