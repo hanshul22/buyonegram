@@ -59,13 +59,13 @@ const Header = () => {
             
 
             {/* Language Selector */}
-            <button
+            {/* <button
               className="flex items-center transition-colors text-neutral-600 hover:text-primary-600"
               onClick={toggleLanguage}
             >
               <FaGlobe className="mr-2" />
               {languages[language].code}
-            </button>
+            </button> */}
 
             {/* Sign Up Button */}
             <motion.button

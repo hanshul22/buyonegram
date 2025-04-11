@@ -6,17 +6,17 @@ import { gsap } from 'gsap';
 
 const features = [
   {
-    icon: <FaCheckCircle className="text-5xl text-primary" />,
+    icon: <FaCheckCircle className="text-5xl text-[#2e7d32]" />,
     title: 'Quality Assurance',
     description: 'Certified products with rigorous inspections and traceability from farm to warehouse.'
   },
   {
-    icon: <FaBoxes className="text-5xl text-primary" />,
+    icon: <FaBoxes className="text-5xl text-[#2e7d32] " />,
     title: 'Bulk Ordering',
     description: 'Simplified wholesale ordering system with dynamic pricing and volume discounts.'
   },
   {
-    icon: <FaLock className="text-5xl text-primary" />,
+    icon: <FaLock className="text-5xl text-[#2e7d32]" />,
     title: 'Secure Payments',
     description: 'Your transactions are protected by advanced escrow systems to ensure fairness for all parties.'
   }
@@ -63,7 +63,7 @@ const FeatureCard = ({ feature, index }) => {
       className="p-8 transition-all duration-300 bg-white shadow-lg rounded-2xl hover:shadow-2xl"
     >
       <div className="flex flex-col items-center space-y-4 text-center">
-        <div className="p-4 rounded-full bg-primary/5">
+        <div className="p-4 rounded-full bg-primary/5 ">
           {feature.icon}
         </div>
         <h3 className="text-2xl font-bold text-gray-800">
@@ -127,7 +127,7 @@ const Features = () => {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => (
-            <FeatureCard key={index} feature={feature} index={index} />
+            <FeatureCard  key={index} feature={feature} index={index} />
           ))}
         </div>
       </div>

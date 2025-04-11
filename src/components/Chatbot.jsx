@@ -31,7 +31,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsOpen(true)}
-            className="fixed z-50 p-4 text-white transition rounded-full shadow-lg bottom-4 right-4 bg-green-500 hover:bg-green-600"
+            className="fixed z-50 p-4 text-white transition rounded-full shadow-lg bottom-4 right-4 bg-[#2e7d32] hover:bg-primary-700"
           >
             <FaComments size={24} />
           </motion.button>
@@ -46,7 +46,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsOpen(false)}
-            className="fixed z-50 p-4 text-white transition rounded-full shadow-lg bottom-4 right-4 bg-red-500 hover:bg-red-600"
+            className="fixed z-50 p-4 text-white transition bg-red-500 rounded-full shadow-lg bottom-4 right-4 hover:bg-red-600"
           >
             <FaTimes size={24} />
           </motion.button>

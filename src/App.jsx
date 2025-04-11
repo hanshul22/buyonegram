@@ -30,7 +30,7 @@ function App() {
                 <HowWeWork />
                 <Features />
                 <Mission />
-                <Statistics />
+                {/* <Statistics /> */}
                 <TrustIndicators />
                 <Contact />
               </main>
