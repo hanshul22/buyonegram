@@ -105,7 +105,7 @@ const Hero = () => {
                 Trusted by 1500+ Businesses
               </span>
               <h1 className="mb-6 text-5xl font-bold leading-tight md:text-6xl lg:text-7xl text-balance">
-                Bridging Local Harvests with Global Demand
+                Bridging Local <span className="mb-6 text-5xl font-bold leading-tight text-transparent md:text-6xl lg:text-7xl text-balance bg-gradient-to-r from-green-600 via-green-500 to-yellow-400 bg-clip-text">Harvests</span> with Global Demand
               </h1>
               <p className="max-w-2xl mb-8 text-xl leading-relaxed text-neutral-600">
                 Welcome to Buy One Gram – the B2B marketplace revolutionizing the way agricultural trade works. We connect verified farmers with global buyers, delivering premium pulses and beans with transparency, quality, and trust.
