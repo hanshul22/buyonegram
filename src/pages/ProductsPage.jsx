@@ -242,24 +242,24 @@ const productsData = [
   }
 ];
 
-const bestSeller = {
-
-  name: 'Masoor Dal',
-  image: masoorDal,
-  prices: {
-    '500gm': 69.70,
-    '1kg': 138.40,
-    '5kg': 677.00,
-    '30kg': 3840.00
-  },
-  description: 'Premium quality Kabuli Dollar, known for its superior size and cooking quality. Perfect for both home and commercial use.',
-  features: [
-    'Premium Grade',
-    'Consistent Size',
-    'High Protein Content',
-    'No Chemical Processing'
-  ]
-};
+// Commented out unused variable to fix linter warning
+// const bestSeller = {
+//   name: 'Masoor Dal',
+//   image: masoorDal,
+//   prices: {
+//     '500gm': 69.70,
+//     '1kg': 138.40,
+//     '5kg': 677.00,
+//     '30kg': 3840.00
+//   },
+//   description: 'Premium quality Kabuli Dollar, known for its superior size and cooking quality. Perfect for both home and commercial use.',
+//   features: [
+//     'Premium Grade',
+//     'Consistent Size',
+//     'High Protein Content',
+//     'No Chemical Processing'
+//   ]
+// };
 
 const featuredProducts = [
   {
@@ -408,9 +408,44 @@ const FeaturedProduct = ({ product, direction }) => {
       };
       
       return productTo500gmImage[productKey] || product?.image;
+    } else if (currentWeight === '1kg') {
+      // For 1kg, use the regular product image
+      const productToRegularImage = {
+        'arhar_dal': arharDal,
+        'bura': mishriCutting,
+        'channa_dal': channaDal,
+        'cholla_mogar': cholaMogar,
+        'kabuli_channa': kabuliChanna,
+        'kabuli_dollar': kabuliChanna,
+        'kala_channa': kalaChanna,
+        'lobiya': lobiya,
+        'masoor_dal': masoorDal,
+        'masoor_kali': kaliMasoor,
+        'masoor_malka': masoorDal,
+        'matar_green': whiteMatar,
+        'matar_safed': whiteMatar,
+        'mishri_cutting': mishriCutting,
+        'mix_dal': mixDal,
+        'moofhli_dana_desi': mufliDana,
+        'moong_chilka': moong,
+        'moong_dal': moongDal,
+        'moong_mogar_bold': moongMogar,
+        'moong_sabut': moong,
+        'moth_sabut': mothSabut,
+        'rajma_chitra': chitraRajma,
+        'rajma_jhambu': jhamboRajma,
+        'rajma_red': jhamboRajma,
+        'sabu_dana': sabudana,
+        'soyabean_dana': mufliDana,
+        'urad_chilka_daal': uradChilka,
+        'urad_mogar': uradChilka,
+        'urad_sabut': uradSabut
+      };
+      
+      return productToRegularImage[productKey] || product?.image;
     }
     
-    // Default to the regular image for 1kg or if none of the above match
+    // Default to the regular image if none of the above match
     return product?.image;
   };
   
@@ -461,12 +496,18 @@ const FeaturedProduct = ({ product, direction }) => {
                   ease: "easeOut"
                 }}
                 className={`p-4 rounded-xl cursor-pointer ${
-                  currentWeight === weight ? 'bg-primary-600 text-white' : 'bg-primary-50'
+                  currentWeight === weight ? 'bg-primary-600 text-white' : price > 0 ? 'bg-primary-50' : 'bg-gray-100 opacity-60'
                 }`}
-                onClick={() => setCurrentWeight(weight)}
+                onClick={() => price > 0 && setCurrentWeight(weight)}
               >
-                <p className={`font-semibold ${currentWeight === weight ? 'text-white' : 'text-primary-600'}`}>{weight}</p>
-                <p className={`text-2xl font-bold ${currentWeight === weight ? 'text-white' : 'text-gray-800'}`}>₹{price}</p>
+                <p className={`font-semibold ${
+                  currentWeight === weight ? 'text-white' : price > 0 ? 'text-primary-600' : 'text-gray-400'
+                }`}>{weight}</p>
+                <p className={`text-2xl font-bold ${
+                  currentWeight === weight ? 'text-white' : price > 0 ? 'text-gray-800' : 'text-gray-400'
+                }`}>
+                  {price > 0 ? `₹${price}` : 'Not Available'}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -598,9 +639,44 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
       };
       
       return productTo500gmImage[productKey] || product?.image;
+    } else if (selectedWeight === '1kg') {
+      // For 1kg, use the regular product image
+      const productToRegularImage = {
+        'arhar_dal': arharDal,
+        'bura': mishriCutting,
+        'channa_dal': channaDal,
+        'cholla_mogar': cholaMogar,
+        'kabuli_channa': kabuliChanna,
+        'kabuli_dollar': kabuliChanna,
+        'kala_channa': kalaChanna,
+        'lobiya': lobiya,
+        'masoor_dal': masoorDal,
+        'masoor_kali': kaliMasoor,
+        'masoor_malka': masoorDal,
+        'matar_green': whiteMatar,
+        'matar_safed': whiteMatar,
+        'mishri_cutting': mishriCutting,
+        'mix_dal': mixDal,
+        'moofhli_dana_desi': mufliDana,
+        'moong_chilka': moong,
+        'moong_dal': moongDal,
+        'moong_mogar_bold': moongMogar,
+        'moong_sabut': moong,
+        'moth_sabut': mothSabut,
+        'rajma_chitra': chitraRajma,
+        'rajma_jhambu': jhamboRajma,
+        'rajma_red': jhamboRajma,
+        'sabu_dana': sabudana,
+        'soyabean_dana': mufliDana,
+        'urad_chilka_daal': uradChilka,
+        'urad_mogar': uradChilka,
+        'urad_sabut': uradSabut
+      };
+      
+      return productToRegularImage[productKey] || product?.image;
     }
     
-    // Default to the regular image for 1kg or if none of the above match
+    // Default to the regular image if none of the above match
     return product?.image || `/products/${productName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
   };
 
@@ -659,21 +735,21 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
           transition={{ delay: 0.3 }}
         >
           {['500gm', '1kg', '5kg', '30kg'].map((weight) => (
-            product?.[weight] > 0 && (
-              <motion.button
-                key={weight}
-                onClick={() => setSelectedWeight(weight)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  selectedWeight === weight
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {weight}
-              </motion.button>
-            )
+            <motion.button
+              key={weight}
+              onClick={() => product?.[weight] > 0 ? setSelectedWeight(weight) : null}
+              whileHover={{ scale: product?.[weight] > 0 ? 1.05 : 1 }}
+              whileTap={{ scale: product?.[weight] > 0 ? 0.95 : 1 }}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                selectedWeight === weight && product?.[weight] > 0
+                  ? 'bg-primary-600 text-white'
+                  : product?.[weight] > 0 
+                    ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-60'
+              }`}
+            >
+              {weight}
+            </motion.button>
           ))}
         </motion.div>
 
