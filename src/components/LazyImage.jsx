@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 const LazyImage = ({ 
   src, 
   alt, 
   className = '', 
   placeholderColor = '#f3f4f6', 
+  centerImage = false,
   onError,
   ...props 
 }) => {
@@ -50,7 +52,7 @@ const LazyImage = ({
   return (
     <div 
       ref={imgRef}
-      className="relative"
+      className={`relative ${centerImage ? 'flex items-center justify-center' : ''}`}
       style={{
         backgroundColor: isLoaded ? 'transparent' : placeholderColor,
         ...props.style
@@ -60,7 +62,7 @@ const LazyImage = ({
         <img
           src={src}
           alt={alt}
-          className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+          className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ${centerImage ? 'max-h-full max-w-full object-contain' : ''}`}
           onLoad={handleLoad}
           onError={handleError}
           loading="lazy"
@@ -87,6 +89,16 @@ const LazyImage = ({
       )}
     </div>
   );
+};
+
+LazyImage.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  placeholderColor: PropTypes.string,
+  centerImage: PropTypes.bool,
+  onError: PropTypes.func,
+  style: PropTypes.object
 };
 
 export default LazyImage; 

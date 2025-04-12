@@ -3,9 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import {
-  moong, kalaChanna, kaliMasoor, moongDal, uradSabut, arharDal,moongMogar,channaDal,mothSabut,
-  whiteMatar,sabudana,uradChilka,chitraRajma,cholaMogar,mishriCutting,mixDal,jhamboRajma,kabuliChanna,
-  lobiya,masoorDal,mufliDana,} from "../assets";
+  moong, kalaChanna, kaliMasoor, moongDal, uradSabut, arharDal, moongMogar, channaDal, mothSabut,
+  whiteMatar, sabudana, uradChilka, chitraRajma, cholaMogar, mishriCutting, mixDal, jhamboRajma, kabuliChanna,
+  lobiya, masoorDal, mufliDana,
+  // 500gm imports
+  moong500, kalaChanna500, kaliMasoor500, moongDal500, uradSabut500, arharDal500, moongMogar500,
+  channaDal500, mothSabut500, whiteMatar500, sabudana500, uradChilka500, chitraRajma500, cholaMogar500,
+  mishriCutting500, mixDal500, jhamboRajma500, kabuliChanna500, lobiya500, masoorDal500, mufliDana500,
+  // Package size imports
+  pkg5kg, pkg30kg
+} from "../assets";
 import emailjs from '@emailjs/browser';
 
 const productsData = [
@@ -344,13 +351,68 @@ const featuredProducts = [
 
 
 const FeaturedProduct = ({ product, direction }) => {
+  // Move useState to the top before any conditional returns
+  const [currentWeight, setCurrentWeight] = useState(
+    product && product.prices ? Object.keys(product.prices)[0] || '500gm' : '500gm'
+  );
+  
   if (!product) return null;
   
   const productName = product?.name || 'Product';
   const productDescription = product?.description || '';
-  const productImage = product?.image || '';
   const productPrices = product?.prices || {};
   const productFeatures = product?.features || [];
+  
+  // Helper function to get the correct image based on weight
+  const getProductImage = () => {
+    // Product name in lowercase with spaces replaced by underscores
+    const productKey = productName.toLowerCase().replace(/\s+/g, '_').replace(/[()]/g, '');
+    
+    // For 5kg and 30kg packages, use the standard package images
+    if (currentWeight === '5kg') {
+      return pkg5kg;
+    } else if (currentWeight === '30kg') {
+      return pkg30kg;
+    } else if (currentWeight === '500gm') {
+      // For 500gm, try to find the corresponding 500gm image
+      const productTo500gmImage = {
+        'arhar_dal': arharDal500,
+        'bura': mishriCutting500,
+        'channa_dal': channaDal500,
+        'cholla_mogar': cholaMogar500,
+        'kabuli_channa': kabuliChanna500,
+        'kabuli_dollar': kabuliChanna500,
+        'kala_channa': kalaChanna500,
+        'lobiya': lobiya500,
+        'masoor_dal': masoorDal500,
+        'masoor_kali': kaliMasoor500,
+        'masoor_malka': masoorDal500,
+        'matar_green': whiteMatar500,
+        'matar_safed': whiteMatar500,
+        'mishri_cutting': mishriCutting500,
+        'mix_dal': mixDal500,
+        'moofhli_dana_desi': mufliDana500,
+        'moong_chilka': moong500,
+        'moong_dal': moongDal500,
+        'moong_mogar_bold': moongMogar500,
+        'moong_sabut': moong500,
+        'moth_sabut': mothSabut500,
+        'rajma_chitra': chitraRajma500,
+        'rajma_jhambu': jhamboRajma500,
+        'rajma_red': jhamboRajma500,
+        'sabu_dana': sabudana500,
+        'soyabean_dana': mufliDana500,
+        'urad_chilka_daal': uradChilka500,
+        'urad_mogar': uradChilka500,
+        'urad_sabut': uradSabut500
+      };
+      
+      return productTo500gmImage[productKey] || product?.image;
+    }
+    
+    // Default to the regular image for 1kg or if none of the above match
+    return product?.image;
+  };
   
   return (
     <motion.div
@@ -398,10 +460,13 @@ const FeaturedProduct = ({ product, direction }) => {
                   delay: 0.5 + (index * 0.1),
                   ease: "easeOut"
                 }}
-                className="p-4 bg-primary-50 rounded-xl"
+                className={`p-4 rounded-xl cursor-pointer ${
+                  currentWeight === weight ? 'bg-primary-600 text-white' : 'bg-primary-50'
+                }`}
+                onClick={() => setCurrentWeight(weight)}
               >
-                <p className="font-semibold text-primary-600">{weight}</p>
-                <p className="text-2xl font-bold text-gray-800">₹{price}</p>
+                <p className={`font-semibold ${currentWeight === weight ? 'text-white' : 'text-primary-600'}`}>{weight}</p>
+                <p className={`text-2xl font-bold ${currentWeight === weight ? 'text-white' : 'text-gray-800'}`}>₹{price}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -449,7 +514,7 @@ const FeaturedProduct = ({ product, direction }) => {
         className="relative h-[500px] rounded-2xl overflow-hidden"
       >
         <motion.img
-          src={productImage}
+          src={getProductImage()}
           alt={productName}
           className="object-cover w-full h-full"
           initial={{ scale: 1.1 }}
@@ -485,7 +550,59 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
   const productName = product?.product || 'Product';
   const price = product?.[selectedWeight] || 0;
   const formattedPrice = typeof price === 'number' ? price.toFixed(2) : '0.00';
-  const productImage = product?.image || `/products/${productName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+  
+  // Helper function to get the correct image based on weight
+  const getProductImage = () => {
+    // Product name in lowercase with spaces replaced by underscores
+    const productKey = productName.toLowerCase().replace(/\s+/g, '_').replace(/[()]/g, '');
+    
+    // For 5kg and 30kg packages, use the standard package images
+    if (selectedWeight === '5kg') {
+      return pkg5kg;
+    } else if (selectedWeight === '30kg') {
+      return pkg30kg;
+    } else if (selectedWeight === '500gm') {
+      // For 500gm, try to find the corresponding 500gm image
+      // This uses dynamic access to the imported images
+      // Create mapping for product names to their 500gm image variables
+      const productTo500gmImage = {
+        'arhar_dal': arharDal500,
+        'bura': mishriCutting500,
+        'channa_dal': channaDal500,
+        'cholla_mogar': cholaMogar500,
+        'kabuli_channa': kabuliChanna500,
+        'kabuli_dollar': kabuliChanna500,
+        'kala_channa': kalaChanna500,
+        'lobiya': lobiya500,
+        'masoor_dal': masoorDal500,
+        'masoor_kali': kaliMasoor500,
+        'masoor_malka': masoorDal500,
+        'matar_green': whiteMatar500,
+        'matar_safed': whiteMatar500,
+        'mishri_cutting': mishriCutting500,
+        'mix_dal': mixDal500,
+        'moofhli_dana_desi': mufliDana500,
+        'moong_chilka': moong500,
+        'moong_dal': moongDal500,
+        'moong_mogar_bold': moongMogar500,
+        'moong_sabut': moong500,
+        'moth_sabut': mothSabut500,
+        'rajma_chitra': chitraRajma500,
+        'rajma_jhambu': jhamboRajma500,
+        'rajma_red': jhamboRajma500,
+        'sabu_dana': sabudana500,
+        'soyabean_dana': mufliDana500,
+        'urad_chilka_daal': uradChilka500,
+        'urad_mogar': uradChilka500,
+        'urad_sabut': uradSabut500
+      };
+      
+      return productTo500gmImage[productKey] || product?.image;
+    }
+    
+    // Default to the regular image for 1kg or if none of the above match
+    return product?.image || `/products/${productName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+  };
 
   return (
     <motion.div
@@ -500,7 +617,7 @@ const ProductCard = ({ product, onBuyNowClick, selectedWeight, setSelectedWeight
     >
       <div className="relative w-full overflow-hidden aspect-square">
         <motion.img
-          src={productImage}
+          src={getProductImage()}
           alt={productName}
           className="object-contain w-full h-full p-4"
           whileHover={{ scale: 1.1 }}

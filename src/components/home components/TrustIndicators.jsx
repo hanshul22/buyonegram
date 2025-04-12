@@ -1,18 +1,18 @@
 import { motion, useAnimationControls } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { client1, client2, client3 } from '../../assets';
+import { client1, client2, client3, client4, client5, client6, client7, client8, client9 } from '../../assets';
 import LazyImage from '../LazyImage';
 
 const clients = [
   { name: 'Aadhar Mart', logo: client1 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 2', logo: client2 },
-  { name: 'Client 3', logo: client3 }
+  { name: 'Ipermart', logo: client2 },
+  { name: 'Nr Mart', logo: client3 },
+  { name: 'Q3', logo: client4 },
+  { name: 'DMart', logo: client5 },
+  { name: 'Madhur', logo: client6 },
+  { name: 'Ebazzar', logo: client7 },
+  { name: 'DesiMall', logo: client8 },
+  { name: 'ONDC', logo: client9 }
 ];
 
 const TrustIndicators = () => {
@@ -42,7 +42,7 @@ const TrustIndicators = () => {
   }, [controls]);
 
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-16 overflow-hidden bg-white">
       <div className="container px-4 mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -83,7 +83,8 @@ const TrustIndicators = () => {
                       <LazyImage
                         src={client.logo}
                         alt={client.name}
-                        className="object-contain w-3/4 h-3/4 transition-transform duration-500 transform hover:scale-110"
+                        className="w-3/4 transition-transform duration-500 transform h-3/4 hover:scale-110"
+                        centerImage={true}
                         onError={(e) => {
                           e.target.src = '/clients/placeholder.png';
                         }}
@@ -104,7 +105,8 @@ const TrustIndicators = () => {
                       <LazyImage
                         src={client.logo}
                         alt={client.name}
-                        className="object-contain w-3/4 h-3/4 transition-transform duration-500 transform hover:scale-110"
+                        className="w-3/4 transition-transform duration-500 transform h-3/4 hover:scale-110"
+                        centerImage={true}
                         onError={(e) => {
                           e.target.src = '/clients/placeholder.png';
                         }}

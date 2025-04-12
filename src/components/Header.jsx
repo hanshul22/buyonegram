@@ -3,7 +3,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { FaGlobe, FaBars, FaTimes, FaSearch, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useLanguage, translations, languages } from '../context/LanguageContext';
-import logo from '../assets/bog/bog/logo.png'
+import logo from '../assets/logo.png'
 
 
 
