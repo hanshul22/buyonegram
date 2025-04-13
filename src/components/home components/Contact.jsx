@@ -33,7 +33,7 @@ const Contact = () => {
     
     // EmailJS configuration
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID;
     
     emailjs.sendForm(serviceId, templateId, formRef.current)
       .then((response) => {
