@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaExchangeAlt, FaIndustry, FaWarehouse, FaChartLine, FaMobileAlt } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 const missionPoints = [
   {
@@ -42,33 +43,66 @@ const impactStats = [
 ];
 
 const Mission = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if the viewport is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mobile-specific animations
+  const mobileCardAnimation = {
+    offscreen: { 
+      opacity: 0, 
+      y: 15,
+      scale: 0.95
+    },
+    onscreen: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: { 
+        duration: 0.4,
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container px-4 mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-12 md:mb-16 text-center"
         >
-          <h2 className="mb-6 text-4xl font-bold text-gray-800 md:text-5xl">
+          <h2 className="mb-4 md:mb-6 text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
             Our Mission
           </h2>
-          <p className="max-w-4xl mx-auto text-xl leading-relaxed text-gray-600">
+          <p className="max-w-4xl mx-auto text-lg md:text-xl leading-relaxed text-gray-600">
             At Buy One Gram, where shaping a future where farmers and corporate buyers grow together through trust, technology, and efficiency. Our platform bridges the gap between grassroots producers and global markets by enabling transparent trade, scalable logistics, and smart supply chains.
           </p>
         </motion.div>
 
-        <div className="grid gap-8 mb-16 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:gap-8 mb-12 md:mb-16 md:grid-cols-2 lg:grid-cols-3">
           {missionPoints.map((point, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isMobile ? "offscreen" : { opacity: 0, y: 20 }}
+              whileInView={isMobile ? "onscreen" : { opacity: 1, y: 0 }}
+              variants={isMobile ? mobileCardAnimation : undefined}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="p-8 transition-shadow duration-300 bg-white shadow-lg rounded-2xl hover:shadow-xl"
+              transition={!isMobile ? { duration: 0.6, delay: index * 0.1 } : undefined}
+              className="p-6 md:p-8 transition-shadow duration-300 bg-white shadow-lg rounded-2xl hover:shadow-xl"
             >
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 mb-4 rounded-lg bg-primary-50">
@@ -88,20 +122,21 @@ const Mission = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? "offscreen" : { opacity: 0, y: 20 }}
+          whileInView={isMobile ? "onscreen" : { opacity: 1, y: 0 }}
+          variants={isMobile ? mobileCardAnimation : undefined}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="p-8 mb-16 text-white bg-primary-600 rounded-3xl md:p-12"
+          transition={!isMobile ? { duration: 0.6 } : undefined}
+          className="p-6 md:p-8 lg:p-12 mb-12 md:mb-16 text-white bg-primary-600 rounded-xl md:rounded-3xl"
         >
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="mb-6 text-2xl font-bold md:text-3xl">
+            <h3 className="mb-4 md:mb-6 text-xl md:text-2xl lg:text-3xl font-bold">
               Our Technology-Driven Approach
             </h3>
-            <p className="text-lg leading-relaxed md:text-xl opacity-90">
+            <p className="text-base md:text-lg lg:text-xl leading-relaxed opacity-90">
               Our digital B2B platform and wholesale app simplify the entire buying journey—from product discovery to payment and delivery. With Buy One Gram, you get:
             </p>
-            <ul className="grid max-w-2xl gap-4 mx-auto mt-6 text-lg text-left md:grid-cols-2">
+            <ul className="grid max-w-2xl gap-3 md:gap-4 mx-auto mt-6 text-base md:text-lg text-left md:grid-cols-2">
               <li className="flex items-center"><span className="mr-2">•</span> Verified product quality</li>
               <li className="flex items-center"><span className="mr-2">•</span> Timely delivery</li>
               <li className="flex items-center"><span className="mr-2">•</span> Secure transactions</li>
@@ -112,27 +147,40 @@ const Mission = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? "offscreen" : { opacity: 0, y: 20 }}
+          whileInView={isMobile ? "onscreen" : { opacity: 1, y: 0 }}
+          variants={isMobile ? mobileCardAnimation : undefined}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={!isMobile ? { duration: 0.6 } : undefined}
           className="text-center"
         >
-          <h3 className="mb-10 text-2xl font-bold text-gray-800 md:text-3xl">
+          <h3 className="mb-8 md:mb-10 text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
             Our Impact at a Glance
           </h3>
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:gap-8 md:grid-cols-4">
             {impactStats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="p-6 transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-lg"
+                initial={isMobile ? "offscreen" : { opacity: 0, scale: 0.9 }}
+                whileInView={isMobile ? "onscreen" : { opacity: 1, scale: 1 }}
+                variants={isMobile ? {
+                  offscreen: { opacity: 0, scale: 0.8 },
+                  onscreen: { 
+                    opacity: 1, 
+                    scale: 1,
+                    transition: { 
+                      duration: 0.3,
+                      type: "spring",
+                      stiffness: 150
+                    }
+                  }
+                } : undefined}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={!isMobile ? { duration: 0.4, delay: index * 0.1 } : undefined}
+                className="p-4 md:p-6 transition-shadow duration-300 bg-white shadow-md rounded-xl hover:shadow-lg"
               >
-                <h4 className="mb-2 text-3xl font-bold md:text-4xl text-primary-600">{stat.value}</h4>
-                <p className="text-gray-700">{stat.label}</p>
+                <h4 className="mb-1 md:mb-2 text-2xl md:text-3xl lg:text-4xl font-bold text-primary-600">{stat.value}</h4>
+                <p className="text-sm md:text-base text-gray-700">{stat.label}</p>
               </motion.div>
             ))}
           </div>

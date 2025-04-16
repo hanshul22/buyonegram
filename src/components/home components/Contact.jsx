@@ -12,11 +12,20 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const formRef = useRef();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   
   useEffect(() => {
     // Initialize EmailJS
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'public_key';
     emailjs.init(publicKey);
+    
+    // Check for mobile viewport
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleChange = (e) => {
@@ -57,18 +66,23 @@ const Contact = () => {
       });
   };
 
+  // Mobile-specific animation classes
+  const mobileAnimation = isMobile ? 'transition-transform duration-300 hover:scale-102 active:scale-98' : '';
+  const fadeInUpClass = isMobile ? 'animate-fadeInUp' : '';
+
   return (
-    <section id="contact" className="py-16 bg-gray-50">
+    <section id="contact" className="py-10 md:py-16 bg-gray-50">
       <div className="container px-4 mx-auto">
-        <h2 className="mb-12 text-3xl font-bold text-center text-gray-800">
+        <h2 className="mb-8 md:mb-12 text-2xl md:text-3xl font-bold text-center text-gray-800">
           Get in Touch
         </h2>
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
           {/* Contact Form */}
-          <div className="p-8 bg-white rounded-lg shadow-md">
+          <div className={`p-5 md:p-8 bg-white rounded-lg shadow-md ${fadeInUpClass}`} 
+               style={isMobile ? {animationDelay: '0.1s'} : {}}>
             <form ref={formRef} onSubmit={handleSubmit}>
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block mb-2 text-gray-700" htmlFor="name">
                   Name
                 </label>
@@ -78,12 +92,12 @@ const Contact = () => {
                   name="from_name"
                   value={formData.from_name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
+                  className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:border-primary ${mobileAnimation}`}
                   required
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block mb-2 text-gray-700" htmlFor="email">
                   Email
                 </label>
@@ -93,12 +107,12 @@ const Contact = () => {
                   name="from_email"
                   value={formData.from_email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
+                  className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:border-primary ${mobileAnimation}`}
                   required
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block mb-2 text-gray-700" htmlFor="subject">
                   Subject
                 </label>
@@ -108,12 +122,12 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
+                  className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:border-primary ${mobileAnimation}`}
                   required
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block mb-2 text-gray-700" htmlFor="message">
                   Message
                 </label>
@@ -122,8 +136,8 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows="4"
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
+                  rows={isMobile ? "3" : "4"}
+                  className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:border-primary ${mobileAnimation}`}
                   required
                 ></textarea>
               </div>
@@ -139,9 +153,9 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative w-full py-4 text-white font-semibold tracking-wide text-base transition-all duration-300 rounded-lg 
+                className={`group relative w-full py-3 md:py-4 text-white font-semibold tracking-wide text-base transition-all duration-300 rounded-lg 
                 bg-gradient-to-r from-primary via-primary/90 to-primary/80 hover:from-primary hover:via-primary hover:to-primary/90 bg-[#2e7d32]
-                disabled:opacity-70 overflow-hidden"
+                disabled:opacity-70 overflow-hidden ${isMobile ? 'active:transform active:translate-y-0.5' : ''}`}
               >
                 <div className="absolute inset-0 w-full h-full transition-all duration-300 
                   bg-gradient-to-r from-transparent via-white/5 to-transparent 
@@ -170,14 +184,15 @@ const Contact = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-8">
-            <div className="flex items-start space-x-4">
-              <FaMapMarkerAlt className="mt-1 text-2xl text-primary" />
+          <div className="space-y-6 md:space-y-8">
+            <div className={`flex items-start space-x-4 p-3 md:p-0 rounded-lg ${isMobile ? 'bg-white/80 shadow-sm animate-fadeInRight' : ''}`}
+                 style={isMobile ? {animationDelay: '0.2s'} : {}}>
+              <FaMapMarkerAlt className={`mt-1 text-xl md:text-2xl text-primary ${isMobile ? 'animate-pulse' : ''}`} />
               <div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-800">
+                <h3 className="mb-1 md:mb-2 text-lg md:text-xl font-semibold text-gray-800">
                   Office Location
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-sm md:text-base text-gray-600">
                   Rajasthan Centre of Advanced Technology(R-CAT)<br />
                   Sitapura,Jaipur<br />
                   India,
@@ -185,37 +200,40 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="flex items-start space-x-4">
-              <FaEnvelope className="mt-1 text-2xl text-primary" />
+            <div className={`flex items-start space-x-4 p-3 md:p-0 rounded-lg ${isMobile ? 'bg-white/80 shadow-sm animate-fadeInRight' : ''}`}
+                 style={isMobile ? {animationDelay: '0.3s'} : {}}>
+              <FaEnvelope className={`mt-1 text-xl md:text-2xl text-primary ${isMobile ? 'animate-pulse' : ''}`} />
               <div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-800">
+                <h3 className="mb-1 md:mb-2 text-lg md:text-xl font-semibold text-gray-800">
                   Email Us
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-sm md:text-base text-gray-600">
                   buy1gram@gmail.com<br />
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start space-x-4">
-              <FaPhone className="mt-1 text-2xl text-primary" />
+            <div className={`flex items-start space-x-4 p-3 md:p-0 rounded-lg ${isMobile ? 'bg-white/80 shadow-sm animate-fadeInRight' : ''}`}
+                 style={isMobile ? {animationDelay: '0.4s'} : {}}>
+              <FaPhone className={`mt-1 text-xl md:text-2xl text-primary ${isMobile ? 'animate-pulse' : ''}`} />
               <div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-800">
+                <h3 className="mb-1 md:mb-2 text-lg md:text-xl font-semibold text-gray-800">
                   Call Us
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-sm md:text-base text-gray-600">
                   +91 8619641968<br />
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start space-x-4">
-              <FaClock className="mt-1 text-2xl text-primary" />
+            <div className={`flex items-start space-x-4 p-3 md:p-0 rounded-lg ${isMobile ? 'bg-white/80 shadow-sm animate-fadeInRight' : ''}`}
+                 style={isMobile ? {animationDelay: '0.5s'} : {}}>
+              <FaClock className={`mt-1 text-xl md:text-2xl text-primary ${isMobile ? 'animate-pulse' : ''}`} />
               <div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-800">
+                <h3 className="mb-1 md:mb-2 text-lg md:text-xl font-semibold text-gray-800">
                   Business Hours
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-sm md:text-base text-gray-600">
                   Monday - Friday: 9:00 AM - 6:00 PM<br />
                   Saturday: 10:00 AM - 2:00 PM<br />
                   Sunday: Closed

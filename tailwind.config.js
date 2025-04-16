@@ -57,6 +57,29 @@ export default {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-dots': 'radial-gradient(circle, #E5E7EB 1px, transparent 1px)',
       },
+      animation: {
+        'fadeInUp': 'fadeInUp 0.5s ease-out forwards',
+        'fadeInRight': 'fadeInRight 0.5s ease-out forwards',
+        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      keyframes: {
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeInRight: {
+          '0%': { opacity: '0', transform: 'translateX(-15px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
+        },
+      },
+      scale: {
+        '102': '1.02',
+        '98': '0.98',
+      },
     },
   },
   plugins: [],

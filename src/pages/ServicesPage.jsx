@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaHandshake, FaLeaf, FaCheckCircle, FaTruck, FaUserShield, FaUsers, FaBox, FaWarehouse, FaSearch } from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import { MobileMotionDiv, MobileStaggerList, useMobileDetect } from '../components/MobileAnimations';
 
 const services = [
   {
@@ -59,6 +60,7 @@ const services = [
   }
 ];
 
+// Desktop version of service card
 const ServiceCard = ({ service, index }) => {
   return (
     <motion.div
@@ -93,6 +95,33 @@ const ServiceCard = ({ service, index }) => {
   );
 };
 
+// Mobile-optimized service card
+const MobileServiceCard = ({ service }) => {
+  return (
+    <div className="overflow-hidden bg-white shadow service-card-mobile">
+      <div className="p-4">
+        {/* Icon with gradient background */}
+        <div className="flex items-center justify-center w-12 h-12 mb-3 rounded-full bg-gradient-to-br from-primary-50 to-primary-100">
+          <div className="text-primary-600">{service.icon}</div>
+        </div>
+
+        {/* Content */}
+        <h3 className="mb-2 text-lg font-bold text-gray-800">
+          {service.title}
+        </h3>
+        <p className="text-sm text-gray-600">
+          {service.description}
+        </p>
+
+        {/* Category Tag */}
+        <div className="inline-block px-2 py-1 mt-3 text-xs font-medium rounded-full bg-primary-50 text-primary-600">
+          {service.category}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 ServiceCard.propTypes = {
   service: PropTypes.shape({
     icon: PropTypes.node.isRequired,
@@ -103,33 +132,61 @@ ServiceCard.propTypes = {
   index: PropTypes.number.isRequired
 };
 
+MobileServiceCard.propTypes = {
+  service: PropTypes.shape({
+    icon: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired
+  }).isRequired
+};
+
 const ServicesPage = () => {
+  const isMobile = useMobileDetect();
+
   return (
     <div className="min-h-screen pt-20 bg-gray-50">
       {/* Hero Section */}
-      <section className="py-20 text-white bg-gradient-to-r from-primary-600 to-primary-700">
+      <section className={`py-12 md:py-20 text-white bg-gradient-to-r from-primary-600 to-primary-700 ${isMobile ? 'services-hero-mobile' : ''}`}>
         <div className="container px-4 mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <h1 className="mb-6 text-4xl font-bold md:text-5xl">Our Services</h1>
-            <p className="text-xl opacity-90">
-              Smart, Scalable, and End-to-End Solutions for Modern Agriculture
-            </p>
-          </motion.div>
+          {isMobile ? (
+            <MobileMotionDiv animation="fadeInUp" className="text-center">
+              <h1 className="mb-4 text-3xl font-bold">Our Services</h1>
+              <p className="opacity-90">
+                Smart, Scalable, and End-to-End Solutions for Modern Agriculture
+              </p>
+            </MobileMotionDiv>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-3xl mx-auto text-center"
+            >
+              <h1 className="mb-6 text-4xl font-bold md:text-5xl">Our Services</h1>
+              <p className="text-xl opacity-90">
+                Smart, Scalable, and End-to-End Solutions for Modern Agriculture
+              </p>
+            </motion.div>
+          )}
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <div className="container px-4 mx-auto">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => (
-              <ServiceCard key={service.title} service={service} index={index} />
-            ))}
-          </div>
+          {isMobile ? (
+            <MobileStaggerList animation="fadeInUp" className="space-y-4 services-list-mobile">
+              {services.map((service) => (
+                <MobileServiceCard key={service.title} service={service} />
+              ))}
+            </MobileStaggerList>
+          ) : (
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service, index) => (
+                <ServiceCard key={service.title} service={service} index={index} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
