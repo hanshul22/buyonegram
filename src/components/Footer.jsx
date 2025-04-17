@@ -1,60 +1,60 @@
 import { useState } from 'react';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaMapMarkerAlt, FaTimes, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaMapMarkerAlt, FaTimes, FaYoutube, FaGlobe } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Footer = () => {
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   return (
-    <footer className="pt-16 pb-8 text-white bg-gray-900">
+    <footer className="pt-16 pb-8 text-white bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="container px-4 mx-auto">
-        <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-12 mb-12 md:grid-cols-2 lg:grid-cols-5">
           {/* Company Info */}
-          <div>
-            <h3 className="mb-4 text-xl font-semibold">BuyOneGram</h3>
-            <p className="mb-4 text-gray-400">
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-white">BuyOneGram</h3>
+            <p className="text-gray-300 leading-relaxed">
               Connecting farmers and buyers worldwide through our innovative B2B marketplace.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://www.facebook.com/buyonegram/" className="text-gray-400 transition hover:text-white">
+            <div className="flex space-x-4 pt-2">
+              <a href="https://www.facebook.com/buyonegram/" className="text-gray-400 transition-all duration-300 hover:text-white hover:scale-110">
                 <FaFacebook size={24} />
               </a>
-              <a href="https://x.com/buyonegram/" className="text-gray-400 transition hover:text-white">
+              <a href="https://x.com/buyonegram/" className="text-gray-400 transition-all duration-300 hover:text-white hover:scale-110">
                 <FaTwitter size={24} />
               </a>
-              <a href="https://www.linkedin.com/company/buy-one-gram-private-limited/" className="text-gray-400 transition hover:text-white">
+              <a href="https://www.linkedin.com/company/buy-one-gram-private-limited/" className="text-gray-400 transition-all duration-300 hover:text-white hover:scale-110">
                 <FaLinkedin size={24} />
               </a>
-              <a href="https://www.instagram.com/buyonegram/" className="text-gray-400 transition hover:text-white">
+              <a href="https://www.instagram.com/buyonegram/" className="text-gray-400 transition-all duration-300 hover:text-white hover:scale-110">
                 <FaInstagram size={24} />
               </a>
-              <a href="https://www.youtube.com/@buyonegram" className="text-gray-400 transition hover:text-white">
+              <a href="https://www.youtube.com/@buyonegram" className="text-gray-400 transition-all duration-300 hover:text-white hover:scale-110">
                 <FaYoutube size={24} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="mb-4 text-xl font-semibold">Quick Links</h3>
-            <ul className="space-y-2">
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">Quick Links</h3>
+            <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Products
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Services
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Contact
                 </a>
               </li>
@@ -62,26 +62,26 @@ const Footer = () => {
           </div>
 
           {/* Legal */}
-          <div>
-            <h3 className="mb-4 text-xl font-semibold">Legal</h3>
-            <ul className="space-y-2">
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">Legal</h3>
+            <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Cookie Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 transition hover:text-white">
+                <a href="#" className="text-gray-300 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   Shipping Policy
                 </a>
               </li>
@@ -89,61 +89,70 @@ const Footer = () => {
           </div>
 
           {/* Subdomains */}
-          <div>
-            <h3 className="mb-4 text-xl font-semibold">Subdomains</h3>
-            <ul className="space-y-2">
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">Subdomains</h3>
+            <ul className="space-y-4">
               <li>
                 <a 
-                  href="https://subdomain1.buyonegram.com" 
+                  href="https://spinwheel.buyonegram.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-gray-400 transition hover:text-primary-500"
+                  className="group flex items-center space-x-2 text-gray-300 transition-all duration-300 hover:text-white"
                 >
-                  https://spinwheel.buyonegram.com/
+                  <FaGlobe className="text-gray-400 group-hover:text-primary-500" />
+                  <span className="border-b border-transparent group-hover:border-white">
+                    spinwheel.buyonegram.com
+                  </span>
                 </a>
               </li>
               <li>
                 <a 
-                  href="https://subdomain2.buyonegram.com" 
+                  href="https://spinwheel.buyonegram.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-gray-400 transition hover:text-primary-500"
+                  className="group flex items-center space-x-2 text-gray-300 transition-all duration-300 hover:text-white"
                 >
-                  https://spinwheel.buyonegram.com/
+                  <FaGlobe className="text-gray-400 group-hover:text-primary-500" />
+                  <span className="border-b border-transparent group-hover:border-white">
+                    spinwheel.buyonegram.com
+                  </span>
                 </a>
               </li>
               <li>
                 <a 
-                  href="https://subdomain3.buyonegram.com" 
+                  href="https://thanks.buyonegram.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-gray-400 transition hover:text-primary-500"
+                  className="group flex items-center space-x-2 text-gray-300 transition-all duration-300 hover:text-white"
                 >
-                  https://thanks.buyonegram.com/
+                  <FaGlobe className="text-gray-400 group-hover:text-primary-500" />
+                  <span className="border-b border-transparent group-hover:border-white">
+                    thanks.buyonegram.com
+                  </span>
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Location */}
-          <div>
-            <h3 className="mb-4 text-xl font-semibold">Our Location</h3>
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">Our Location</h3>
             <button
               onClick={() => setIsMapOpen(true)}
-              className="flex items-center space-x-2 text-gray-400 transition hover:text-white group"
+              className="flex items-center space-x-2 text-gray-300 transition-all duration-300 hover:text-white group"
             >
-              <FaMapMarkerAlt className="text-2xl group-hover:text-primary-500" />
-              <span>View on Map</span>
+              <FaMapMarkerAlt className="text-2xl text-primary-500 group-hover:scale-110 transition-transform duration-300" />
+              <span className="border-b border-transparent group-hover:border-white">View on Map</span>
             </button>
-            <p className="mt-2 text-gray-400">
-            G-222, RIICO, sitapura industrial area, tonk road Jaipur, rajasthan 302019
+            <p className="text-gray-300 leading-relaxed">
+              G-222, RIICO, sitapura industrial area, tonk road Jaipur, rajasthan 302019
             </p>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 text-center text-gray-400 border-t border-gray-800">
-          <p>&copy; {new Date().getFullYear()} © 2020 BuyOneGram. All rights reserved. </p>
+        <div className="pt-8 text-center border-t border-gray-700">
+          <p className="text-gray-400 text-sm">&copy; {new Date().getFullYear()} BuyOneGram. All rights reserved.</p>
         </div>
       </div>
 

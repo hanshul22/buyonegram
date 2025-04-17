@@ -1,4 +1,11 @@
-import { blogVideoImg1, blogVideoImg2, blogShortPostImg1, blogShortPostImg2, blogShortPostImg3, blogShortPostImg4 } from "../assets";
+import { 
+  blogVideoImg1, 
+  blogVideoImg2, 
+  blogShortPostImg1, 
+  blogShortPostImg2, 
+  blogShortPostImg3, 
+  blogShortPostImg4 
+} from "../assets";
 
 
 export const blogShortPosts = [

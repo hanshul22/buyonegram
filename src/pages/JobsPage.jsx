@@ -77,11 +77,11 @@ const JobCard = ({ job, onApply }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+      className="p-6 transition-shadow bg-white shadow-lg rounded-xl hover:shadow-xl"
     >
-      <div className="flex justify-between items-start">
+      <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{job.title}</h3>
+          <h3 className="mb-2 text-xl font-semibold text-gray-800">{job.title}</h3>
           <div className="space-y-2">
             <div className="flex items-center text-gray-600">
               <FaBriefcase className="mr-2" />
@@ -98,19 +98,19 @@ const JobCard = ({ job, onApply }) => {
           </div>
         </div>
         <div className="text-right">
-          <span className="text-primary-600 font-semibold">{job.salary}</span>
-          <p className="text-sm text-gray-500 mt-1">
+          <span className="font-semibold text-primary-600">{job.salary}</span>
+          <p className="mt-1 text-sm text-gray-500">
             Posted: {new Date(job.postedDate).toLocaleDateString()}
           </p>
         </div>
       </div>
-      <div className="mt-6 flex justify-between items-center">
-        <button className="text-primary-600 hover:text-primary-700 font-medium">
+      <div className="flex items-center justify-between mt-6">
+        <button className="font-medium text-primary-600 hover:text-primary-700">
           View Details
         </button>
         <button 
           onClick={() => onApply(job)}
-          className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+          className="px-6 py-2 text-white transition-colors rounded-lg bg-primary-600 hover:bg-primary-700"
         >
           Apply Now
         </button>
@@ -229,8 +229,8 @@ const JobsPage = () => {
   };
 
   const filterOptions = {
-    department: ['All', 'Engineering', 'Marketing', 'Sales', 'Design'],
-    type: ['All', 'Full-time', 'Part-time', 'Internship', 'Contract'],
+    department: ['All', 'Engineering', 'Marketing', 'Sales'],
+    // type: ['All', 'Full-time', 'Part-time', 'Internship', 'Contract'],
     experience: ['All', '0-1 years', '1-3 years', '3-5 years', '5+ years'],
     location: ['All', 'Jaipur', 'Remote', 'Hybrid'],
   };
@@ -253,15 +253,15 @@ const JobsPage = () => {
   });
 
   return (
-    <div className="pt-20 min-h-screen bg-gray-50">
+    <div className="min-h-screen pt-20 bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-700 py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-16 bg-gradient-to-r from-primary-600 to-primary-700">
+        <div className="container px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="mb-6 text-4xl font-bold md:text-5xl">
               Join Our Team
             </h1>
-            <p className="text-xl opacity-90 mb-8">
+            <p className="mb-8 text-xl opacity-90">
               Build your career with AgroPulse and help transform agricultural commerce
             </p>
             
@@ -272,28 +272,54 @@ const JobsPage = () => {
                 placeholder="Search for jobs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-6 py-4 rounded-xl text-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-6 py-4 text-gray-800 shadow-lg rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
-              <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <FaSearch className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2" />
             </div>
+
+          <div className="flex items-center justify-center mt-8 space-x-4">
+            <button
+              onClick={() => handleFilterChange('type', 'Internship')}
+              className={`px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 flex items-center 
+                ${filters.type === 'Internship' 
+                  ? 'bg-primary-600 text-white shadow-md transform scale-105' 
+                  : 'bg-white text-gray-700 hover:bg-gray-100 hover:shadow'}`}
+            >
+              <FaBriefcase className="mr-2" />
+              Internship
+            </button>
+            <button
+              onClick={() => handleFilterChange('type', 'Full-time')}
+              className={`px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 flex items-center
+                ${filters.type === 'Full-time' 
+                  ? 'bg-primary-600 text-white shadow-md transform scale-105' 
+                  : 'bg-white text-gray-700 hover:bg-gray-100 hover:shadow'}`}
+            >
+              <FaClock className="mr-2" />
+              Full-time
+            </button>
+          </div>
+            
           </div>
         </div>
       </section>
 
+      
+
       {/* Filters and Listings */}
       <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="container px-4 mx-auto">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
             {/* Filters Sidebar */}
-            <div className="bg-white rounded-xl shadow-lg p-6">
+            <div className="p-6 bg-white shadow-lg rounded-xl">
               <div className="flex items-center mb-6">
-                <FaFilter className="text-primary-600 mr-2" />
+                <FaFilter className="mr-2 text-primary-600" />
                 <h2 className="text-xl font-semibold">Filters</h2>
               </div>
               
               {Object.entries(filterOptions).map(([category, options]) => (
                 <div key={category} className="mb-6">
-                  <h3 className="font-medium text-gray-700 mb-3 capitalize">
+                  <h3 className="mb-3 font-medium text-gray-700 capitalize">
                     {category}
                   </h3>
                   <select
@@ -313,7 +339,7 @@ const JobsPage = () => {
 
             {/* Job Listings */}
             <div className="lg:col-span-3">
-              <div className="mb-6 flex justify-between items-center">
+              <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold">
                   {filteredJobs.length} Positions Available
                 </h2>
@@ -367,7 +393,7 @@ const JobsPage = () => {
                     {submitResult.success && (
                       <button 
                         onClick={handleCloseModal}
-                        className="mt-4 px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700"
+                        className="px-4 py-2 mt-4 text-white rounded bg-primary-600 hover:bg-primary-700"
                       >
                         Close
                       </button>
@@ -442,7 +468,7 @@ const JobsPage = () => {
                       </div>
                     </div>
 
-                    <div className="mt-6 flex space-x-3">
+                    <div className="flex mt-6 space-x-3">
                       <button
                         type="button"
                         onClick={handleCloseModal}
@@ -453,7 +479,7 @@ const JobsPage = () => {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-md hover:bg-primary-700 focus:outline-none disabled:opacity-70"
+                        className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md bg-primary-600 hover:bg-primary-700 focus:outline-none disabled:opacity-70"
                       >
                         {isSubmitting ? "Submitting..." : "Submit Application"}
                       </button>

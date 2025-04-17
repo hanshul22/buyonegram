@@ -1,11 +1,9 @@
 import { motion } from 'framer-motion';
 import { FaIndustry, FaCertificate, FaRocket } from 'react-icons/fa';
 import LazyImage from '../components/LazyImage';
-import { useEffect, useState } from 'react';
 import { 
   MobileMotionDiv, 
   MobileStaggerList, 
-  MobileTapButton, 
   useMobileDetect 
 } from '../components/MobileAnimations';
 import {
@@ -16,7 +14,8 @@ import {
   pawanKumar,
   aparanaJadon,
   rohit,
-  vinodGurjar
+  vinodGurjar,
+  jvsLogo
 } from '../assets';
 
 const AboutPage = () => {
@@ -27,16 +26,6 @@ const AboutPage = () => {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 }
-  };
-
-  // Mobile-specific animations
-  const mobileCardAnimation = {
-    offscreen: { opacity: 0, scale: 0.9 },
-    onscreen: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { duration: 0.5 }
-    }
   };
 
   const leadership = [
@@ -62,8 +51,13 @@ const AboutPage = () => {
     },
     {
       name: "Pawan Kumar",
-      position: "Chief Operating Officer",
+      position: "Chief Operating Officer (COO)",
       image: pawanKumar
+    },
+    {
+      name: "Vinod Gurjar",
+      position: "Chief Sales Officer (CSO)",
+      image: vinodGurjar
     },
     {
       name: "Aparana Jadon",
@@ -74,11 +68,6 @@ const AboutPage = () => {
       name: "Rohit",
       position: "Warehouse Manager",
       image: rohit
-    },
-    {
-      name: "Vinod Gurjar",
-      position: "Chief Sales Officer",
-      image: vinodGurjar
     }
   ];
 
@@ -170,6 +159,62 @@ const AboutPage = () => {
         </div>
       </section>
 
+      {/* JVS Food Support */}
+      <section className="py-12 md:py-20 bg-gray-50">
+        <div className="container px-4 mx-auto">
+          <div className="max-w-4xl mx-auto text-center">
+            {isMobile ? (
+              <MobileMotionDiv animation="fadeInUp">
+                <h2 className="mb-6 text-2xl font-bold text-gray-800">Supported By</h2>
+                <div className="flex flex-col items-center">
+                  <div className="mb-4">
+                    <LazyImage
+                      src={jvsLogo}
+                      alt="JVS Food Pvt Ltd"
+                      className="w-48 h-auto"
+                    />
+                  </div>
+                  <p className="text-base text-gray-600">
+                    BuyOne Gram is proudly supported by JVS Food Pvt Ltd, a leading name in the food industry. This partnership brings together expertise, resources, and a shared vision for excellence in the wholesale and export sector.
+                  </p>
+                </div>
+              </MobileMotionDiv>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="mb-8 text-2xl font-bold text-gray-800 md:mb-12 md:text-3xl">
+                  <span className="relative inline-block">
+                    Supported By
+                    <span className="absolute bottom-0 w-16 h-1 -translate-x-1/2 md:w-24 left-1/2 bg-primary-600"></span>
+                  </span>
+                </h2>
+                <div className="flex flex-col items-center">
+                  <motion.div 
+                    className="mb-6"
+                    initial={{ scale: 0.9 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <LazyImage
+                      src={jvsLogo}
+                      alt="JVS Food Pvt Ltd"
+                      className="w-64 h-auto"
+                    />
+                  </motion.div>
+                  <p className="max-w-2xl mx-auto text-base text-gray-600 md:text-lg">
+                    BuyOne Gram is proudly supported by JVS Food Pvt Ltd, a leading name in the food industry. This partnership brings together expertise, resources, and a shared vision for excellence in the wholesale and export sector.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Leadership */}
       <section className="py-12 md:py-20 bg-gray-50">
         <div className="container px-4 mx-auto">
@@ -215,42 +260,70 @@ const AboutPage = () => {
               ))}
             </MobileStaggerList>
           ) : (
-            <div className="grid grid-cols-1 gap-6 mx-auto md:gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl">
-              {leadership.map((leader, index) => (
-                <motion.div
-                  key={index}
-                  className="flex flex-col h-full overflow-hidden transition-shadow duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  {/* Image Container */}
-                  <div className="relative h-56 overflow-hidden sm:h-64 md:h-72">
-                    <LazyImage
-                      src={leader.image}
-                      alt={leader.name}
-                      className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                      onError={(e) => {
-                        e.target.src = '/leaders/placeholder.jpg';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  </div>
-
-                  {/* Content Container */}
-                  <div className="flex flex-col flex-grow p-4 md:p-6">
-                    <h3 className="mb-1 text-lg font-semibold text-gray-800 md:mb-2 md:text-xl">{leader.name}</h3>
-                    <p className="pb-2 mb-2 font-medium border-b text-primary-600 border-primary-200">{leader.position}</p>
-                    {leader.qualification && (
-                      <p className="text-sm text-gray-600">{leader.qualification}</p>
-                    )}
-                    {leader.note && (
-                      <p className="mt-2 text-sm italic text-gray-500">{leader.note}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+            <div className="flex flex-col items-center">
+              <div className="grid grid-cols-1 gap-6 w-full md:gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mb-6">
+                {leadership.slice(0, 6).map((leader, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex flex-col h-full overflow-hidden transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-2xl group"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {/* Image Container */}
+                    <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
+                      <LazyImage
+                        src={leader.image}
+                        alt={leader.name}
+                        className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                        onError={(e) => {
+                          e.target.src = '/leaders/placeholder.jpg';
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                      
+                      {/* Content Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="text-xl md:text-2xl font-bold mb-1">{leader.name}</h3>
+                        <p className="text-primary-200 font-medium text-lg">{leader.position}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-4xl">
+                {leadership.slice(6).map((leader, index) => (
+                  <motion.div
+                    key={index + 6}
+                    className="flex flex-col h-full w-full sm:w-[calc(50%-1rem)] overflow-hidden transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-2xl group"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (index + 6) * 0.1 }}
+                  >
+                    {/* Image Container */}
+                    <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
+                      <LazyImage
+                        src={leader.image}
+                        alt={leader.name}
+                        className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                        onError={(e) => {
+                          e.target.src = '/leaders/placeholder.jpg';
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                      
+                      {/* Content Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="text-xl md:text-2xl font-bold mb-1">{leader.name}</h3>
+                        <p className="text-primary-200 font-medium text-lg">{leader.position}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           )}
         </div>
