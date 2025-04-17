@@ -94,14 +94,14 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <a 
-                  href="https://spinwheel.buyonegram.com" 
+                  href="https://visit.buyonegram.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="group flex items-center space-x-2 text-gray-300 transition-all duration-300 hover:text-white"
                 >
                   <FaGlobe className="text-gray-400 group-hover:text-primary-500" />
                   <span className="border-b border-transparent group-hover:border-white">
-                    spinwheel.buyonegram.com
+                    visit.buyonegram.com
                   </span>
                 </a>
               </li>
