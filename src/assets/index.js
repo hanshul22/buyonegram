@@ -70,6 +70,16 @@ import mufliDana500 from "../assets/optimized/500gm/mufli dana copy.webp";
 import pkg5kg from "../assets/optimized/5&30/5kg.webp";
 import pkg30kg from "../assets/optimized/5&30/30kg.webp";
 
+// Blog imports
+import blogVideoImg1 from "../assets/blogs images/video iamges/video1.jpg";
+import blogVideoImg2 from "../assets/blogs images/video iamges/video2.jpg";
+
+// Blog short posts imges
+import blogShortPostImg1 from "../assets/blogs images/post images/post1.jpg";
+import blogShortPostImg2 from "../assets/blogs images/post images/post2.jpg";
+import blogShortPostImg3 from "../assets/blogs images/post images/post3.jpg";
+import blogShortPostImg4 from "../assets/blogs images/post images/post4.jpg";
+
 export { 
   client1, 
   client2, 
@@ -140,5 +150,15 @@ export {
 
   // Package Sizes
   pkg5kg,
-  pkg30kg
+  pkg30kg,
+
+  // Blog video images
+  blogVideoImg1,
+  blogVideoImg2,
+
+  // Blog short posts imges
+  blogShortPostImg1,
+  blogShortPostImg2,
+  blogShortPostImg3,
+  blogShortPostImg4,
 };

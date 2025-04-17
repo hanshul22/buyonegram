@@ -1,31 +1,28 @@
 import { useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { FaGlobe, FaBars, FaTimes, FaSearch, FaUser } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import { useLanguage, translations, languages } from '../context/LanguageContext';
 import logo from '../assets/logo.png'
 
 
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-  const { language, toggleLanguage } = useLanguage();
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   const toggleSignup = () => {
     // Placeholder for signup functionality
     console.log('Sign up clicked');
   };
 
   const navItems = [
-    { name: translations[language].nav.home, to: '/' },
-    { name: translations[language].nav.products, to: '/products' },
-    { name: translations[language].nav.services, to: '/services' },
-    { name: translations[language].nav.jobs, to: '/jobs' },
-    { name: translations[language].nav.about, to: '/about' },
+    { name: 'Home', to: '/' },
+    { name: 'Products', to: '/products' },
+    { name: 'Services', to: '/services' },
+    { name: 'Jobs', to: '/jobs' },
+    { name: 'About', to: '/about' },
+    { name: 'Blog', to: '/blogs' },
   ];
 
   return (
@@ -55,18 +52,6 @@ const Header = () => {
 
           {/* Desktop Actions */}
           <div className="items-center hidden space-x-6 lg:flex">
-            {/* Search Button */}
-            
-
-            {/* Language Selector */}
-            {/* <button
-              className="flex items-center transition-colors text-neutral-600 hover:text-primary-600"
-              onClick={toggleLanguage}
-            >
-              <FaGlobe className="mr-2" />
-              {languages[language].code}
-            </button> */}
-
             {/* Sign Up Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}

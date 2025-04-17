@@ -13,7 +13,8 @@ import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import HowWeWork from './components/home components/HowWeWork';
 import JobsPage from './pages/JobsPage';
-import { LanguageProvider } from './context/LanguageContext';
+import Blogs from './pages/Blogs';
+import BlogDetail from './pages/BlogDetail';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './mobileStyles.css';
@@ -100,7 +101,7 @@ MobileResponsiveWrapper.propTypes = {
 
 function App() {
   return (
-    <LanguageProvider>
+    
       <MobileResponsiveWrapper>
         <Router>
           <div className="min-h-screen bg-white">
@@ -121,13 +122,15 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/jobs" element={<JobsPage />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blog/:id" element={<BlogDetail />} />
             </Routes>
             <Chatbot />
             <Footer />
           </div>
         </Router>
       </MobileResponsiveWrapper>
-    </LanguageProvider>
+    
   );
 }
 

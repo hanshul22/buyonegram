@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaSearch, FaFilter, FaBriefcase, FaMapMarkerAlt, FaClock, FaTimes } from 'react-icons/fa';
-import { useLanguage } from '../context/LanguageContext';
+
 import emailjs from '@emailjs/browser';
 import PropTypes from 'prop-types';
 
@@ -143,7 +143,7 @@ const JobsPage = () => {
     experience: '',
     location: '',
   });
-  const { language } = useLanguage();
+ 
   const formRef = useRef(null);
   
   // Application modal state
