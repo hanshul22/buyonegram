@@ -152,63 +152,70 @@ function Blogs() {
 
       {/* Main Blog Posts Section */}
       <div className="py-16 bg-gray-50">
-        <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
-          <h2 className="relative inline-block mb-12 text-3xl font-bold text-gray-900">
-            Latest Articles
-            <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-green-500 rounded-full"></span>
-          </h2>
-          
-          <div className="space-y-12">
-            {blogPosts.map((post, index) => (
-              <div
-                key={post.id}
-                className="overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-xl"
-              >
-                <div className="md:flex">
-                  <div className="md:flex-shrink-0 md:w-2/5">
-                    <img 
-                      src={post.imageUrl} 
-                      alt={post.title}
-                      className="object-cover w-full h-full md:h-full md:w-full"
-                    />
-                  </div>
-                  
-                  <div className="flex flex-col justify-between p-6 md:p-8">
-                    <div>
-                      <div className="flex items-center mb-4 space-x-4 text-sm text-gray-500">
-                        <span className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-1.5 text-green-600" />
-                          {post.date}
-                        </span>
-                        <span className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1.5 text-green-600" />
-                          {post.readTime}
-                        </span>
-                      </div>
-                      
-                      <h3 className="mb-4 text-2xl font-bold leading-tight text-gray-900">
-                        {post.title}
-                      </h3>
-                      
-                      <p className="mb-6 text-gray-600 line-clamp-3">
-                        {post.shortDescription}
-                      </p>
-                    </div>
-                    
-                    <Link
-                      to={`/blog/${post.id}`}
-                      className="inline-flex items-center font-medium text-green-600 transition-colors duration-200 hover:text-green-700 group"
-                    >
-                      <span className="mr-2">Read Full Article</span>
-                      <span className="transition-transform duration-300 transform group-hover:translate-x-1">→</span>
-                    </Link>
-                  </div>
+  <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+    <h2 className="relative inline-block mb-12 text-3xl font-bold text-gray-900">
+      Latest Articles
+      <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-green-500 rounded-full"></span>
+    </h2>
+
+    <div className="space-y-12">
+      {blogPosts.map((post, index) => (
+        <div
+          key={post.id}
+          className="overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-xl"
+        >
+          <div
+            className={`md:flex ${
+              index % 2 === 1 ? 'md:flex-row-reverse' : ''
+            }`}
+          >
+            <div className="md:flex-shrink-0 md:w-2/5">
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className="object-cover w-full h-full md:h-full md:w-full"
+              />
+            </div>
+
+            <div className="flex flex-col justify-between p-6 md:p-8">
+              <div>
+                <div className="flex items-center mb-4 space-x-4 text-sm text-gray-500">
+                  <span className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-1.5 text-green-600" />
+                    {post.date}
+                  </span>
+                  <span className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1.5 text-green-600" />
+                    {post.readTime}
+                  </span>
                 </div>
+
+                <h3 className="mb-4 text-2xl font-bold leading-tight text-gray-900">
+                  {post.title}
+                </h3>
+
+                <p className="mb-6 text-gray-600 line-clamp-3">
+                  {post.shortDescription}
+                </p>
               </div>
-            ))}
+
+              <Link
+                to={`/blog/${post.id}`}
+                className="inline-flex items-center font-medium text-green-600 transition-colors duration-200 hover:text-green-700 group"
+              >
+                <span className="mr-2">Read Full Article</span>
+                <span className="transition-transform duration-300 transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
+
 
       {/* Add animation styles */}
       <style>
